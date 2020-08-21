@@ -1,0 +1,80 @@
+[
+    {
+        "adPictureId": "7a50aa55-5eb2-4b70-8c60-a9add9f5480e",
+        "framesIndex": 0,
+        "adName": "腰线",
+        "pictureUrl": "https://img10.yiguoimg.com/d/items/2020/200203/9288739937003587_1125x137.jpg?w=1125&h=137",
+        "hrefType": 0,
+        "hrefValue": null,
+        "applyTerminal": 10,
+        "title": null,
+        "subTitle": null
+    },
+    {
+        "adPictureId": "fd146d4e-7e74-42ce-9049-c502f422ff96",
+        "framesIndex": 0,
+        "adName": "无抗鸡",
+        "pictureUrl": "https://img14.yiguoimg.com/d/items/2020/200813/9288740682967309_1125x455.jpg?w=1125&h=455",
+        "hrefType": 1,
+        "hrefValue": "6000040783",
+        "applyTerminal": 10,
+        "title": null,
+        "subTitle": null
+    },
+    {
+        "adPictureId": "decc5a88-229d-45d1-9413-56a0e6138162",
+        "framesIndex": 0,
+        "adName": "猪脊段",
+        "pictureUrl": "https://img14.yiguoimg.com/d/items/2020/200812/9288740682836236_1125x455.jpg?w=1125&h=455",
+        "hrefType": 1,
+        "hrefValue": "6000040710",
+        "applyTerminal": 10,
+        "title": null,
+        "subTitle": null
+    },
+    {
+        "adPictureId": "09c0c6af-c8fe-4010-8e31-fa1ea930e334",
+        "framesIndex": 0,
+        "adName": "面包蟹",
+        "pictureUrl": "https://img14.yiguoimg.com/d/items/2020/200811/9288740682213643_1125x455.jpg?w=1125&h=455",
+        "hrefType": 1,
+        "hrefValue": "6000040683",
+        "applyTerminal": 10,
+        "title": null,
+        "subTitle": null
+    },
+    {
+        "adPictureId": "5c479172-639b-42f1-ace5-2cff2ab73f35",
+        "framesIndex": 0,
+        "adName": "银鳕鱼",
+        "pictureUrl": "https://img09.yiguoimg.com/d/items/2020/200715/9288740661504239_1125x455.jpg?w=1125&h=455",
+        "hrefType": 1,
+        "hrefValue": "6000035214",
+        "applyTerminal": 10,
+        "title": null,
+        "subTitle": null
+    },
+    {
+        "adPictureId": "1b8cab3f-48aa-4e4a-87f9-35121a2c0777",
+        "framesIndex": 0,
+        "adName": "鹿",
+        "pictureUrl": "https://img09.yiguoimg.com/d/items/2020/200811/9288740682246411_1125x455.jpg?w=1125&h=455",
+        "hrefType": 1,
+        "hrefValue": "6000040825",
+        "applyTerminal": 10,
+        "title": null,
+        "subTitle": null
+    },
+    {
+        "adPictureId": "89256e0a-1fe5-40fc-ae8d-a58d2352d15a",
+        "framesIndex": 0,
+        "adName": "底部",
+        "pictureUrl": "https://img09.yiguoimg.com/d/items/2019/190624/9288738348443352_1125x26.jpg?w=1125&h=26",
+        "hrefType": 0,
+        "hrefValue": null,
+        "applyTerminal": 10,
+        "title": null,
+        "subTitle": null
+    }
+
+]
