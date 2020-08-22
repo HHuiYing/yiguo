@@ -10,10 +10,11 @@ router.get('/', async (req, res) => {
     let { page = 1, size = 10, sort = "add_time" } = req.query
     const skip = (page - 1) * size
     const limit = size * 1
-
+    console.log(req.query)
     //  处理排序参数
     sort = sort.split(',')
-    const result = await mongo.find('binxian', {}, { skip, limit, sort })
+    const result = await mongo.find('Binxian', {}, { skip, limit, sort })
+    console.log(result)
     res.send(formatData({ data: result }))
 })
 
@@ -22,9 +23,11 @@ router.delete('/:id', async (req, res) => {
     const { id } = req.params
 
     try {
-        await mongo.remove('binxian', { _id: id })
+        await mongo.remove('Binxian', { commodityComponentId: id })
         res.send(formatData())
     } catch {
         res.send(formatData({ code: 0 }))
     }
 })
+
+module.exports = router

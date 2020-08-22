@@ -7,7 +7,7 @@ const { formatData } = require("../utils/tools")
 
 const vcodeRouter = require("../router/vcode")
 const userRouter = require("../router/user")
-const binxianRouter = require("../router/binxian")
+const BinxianRouter = require("./Binxian")
 
 //  CORS跨域
 router.use(cors)
@@ -43,7 +43,7 @@ router.use('/vcode', vcodeRouter)
 //  用户 /api/user
 router.use('/user', userRouter)
 
-//  冰鲜 /api/binxian
-router.use('/binxian',binxianRouter)
+//  冰鲜 /api/Binxian
+router.use('/Binxian', BinxianRouter)
 
 module.exports = router;
