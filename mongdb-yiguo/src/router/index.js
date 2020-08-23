@@ -8,6 +8,8 @@ const { formatData } = require("../utils/tools")
 const vcodeRouter = require("../router/vcode")
 const userRouter = require("../router/user")
 const BinxianRouter = require("./Binxian")
+const regRouter = require('./reg')
+const loginRouter = require('./login')
 
 //  CORS跨域
 router.use(cors)
@@ -42,6 +44,12 @@ router.use('/vcode', vcodeRouter)
 
 //  用户 /api/user
 router.use('/user', userRouter)
+
+//  用户注册 /api/reg  验证用户名 /api/reg/check
+router.use('/reg', regRouter)
+
+//  用户登录
+router.use('/login', loginRouter)
 
 //  冰鲜 /api/Binxian
 router.use('/Binxian', BinxianRouter)

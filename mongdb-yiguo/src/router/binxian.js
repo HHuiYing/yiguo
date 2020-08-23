@@ -14,7 +14,14 @@ router.get('/', async (req, res) => {
     //  处理排序参数
     sort = sort.split(',')
     const result = await mongo.find('Binxian', {}, { skip, limit, sort })
-    console.log(result)
+    res.send(formatData({ data: result }))
+})
+
+//  查找某个商品
+router.get('/:id', async (req, res) => {
+    const { id } = req.params
+
+    const result = await mongo.find('Binxian', { _id: id })
     res.send(formatData({ data: result }))
 })
 
@@ -23,11 +30,30 @@ router.delete('/:id', async (req, res) => {
     const { id } = req.params
 
     try {
-        await mongo.remove('Binxian', { commodityComponentId: id })
+        await mongo.remove('Binxian', { _id: id })
         res.send(formatData())
     } catch {
         res.send(formatData({ code: 0 }))
     }
+})
+
+//  修改商品
+router.put('/:id', async (req, res) => {
+    const { id } = req.params
+    let { commodityName, commodityPrice, pictureUrl } = req.body
+
+
+    let newData = { commodityName, commodityPrice, pictureUrl }
+
+    try {
+        await mongo.update('manage', { _id: id }, { $set: newData })
+        res.send(formatData({ data: { _id: id, ...newData } }))
+    } catch (err) {
+        // console.log('err=',err)
+        res.send(formatData({ code: 0 }))
+    }
+
+
 })
 
 module.exports = router

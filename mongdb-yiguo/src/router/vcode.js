@@ -11,7 +11,8 @@ router.get('/', async (req, res) => {
     const options = {
         noise: 3,
         ignoreChars: '0O1il',
-        background: '#ccc'
+        background: '#ccc',
+        height: 40
     }
 
     //  生成验证码
