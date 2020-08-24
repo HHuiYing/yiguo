@@ -3,7 +3,7 @@
     <el-header class="header">
       <el-row>
         <el-col :span="12" class="logo">
-          <img src="http://static01.yiguo.com/www/images/header/logo.png" alt=""> 易果生鲜管理系统
+          <img src="http://static01.yiguo.com/www/images/header/logo.png" alt /> 易果生鲜管理系统
         </el-col>
         <el-col :span="12" style="text-align:right">
           <el-button type="text">注册</el-button>
@@ -78,14 +78,14 @@ export default {
           icon: "el-icon-user-solid",
           submenu: [
             {
-              text: '添加用户',
-              path: '/add'
+              text: "添加用户",
+              path: "/add",
             },
             {
-              text: '用户列表',
-              path: '/list'
-            }
-          ]
+              text: "用户列表",
+              path: "/list",
+            },
+          ],
         },
         {
           text: "商品管理",
@@ -102,32 +102,34 @@ export default {
   },
   methods: {
     goto(path, idx) {
-      console.log(this.$router)
-      this.$router.push(path)
-      this.currentIndex = idx
+      console.log(this.$router);
+      this.$router.push(path);
+      this.currentIndex = idx;
     },
-    back(){
-      this.$$router.back()
+    back() {
+      this.$$router.back();
     },
-    changeMenu(path){
-      this.activeIndex = path
-    }
+    changeMenu(path) {
+      this.activeIndex = path;
+    },
   },
   components: {},
 };
 </script>
 
 <style lang="scss">
-html{height:100%}
+html {
+  height: 100%;
+}
 body {
   margin: 0;
-  height:100%
+  height: 100%;
 }
 .el-aside {
   background-color: #d3dce6;
   color: #333;
   // text-align: center;
-  line-height: 200px;
+  line-height: 100%;
 }
 
 .el-main {
@@ -155,5 +157,8 @@ body {
   i {
     color: inherit !important;
   }
+}
+.el-container{
+    height: 100%;
 }
 </style>
