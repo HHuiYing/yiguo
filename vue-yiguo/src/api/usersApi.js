@@ -4,7 +4,7 @@ import request from '@/utils/request'
 export default {
     //验证用户名是否存在
     checkName(username) {
-        return request.get('/user/checkname', {
+        return request.get('/reg/checkname', {
             params: {
                 username
             }
@@ -12,7 +12,7 @@ export default {
     },
     //功能：注册
     reg(username, password) {
-        return request.post('/user/reg', {
+        return request.post('/reg', {
             username,
             password
         })
@@ -20,7 +20,7 @@ export default {
 
     //功能：登陆
     login(username, password) {
-        return request.get('/user/login', {
+        return request.get('/login', {
             params: {
                 username,
                 password

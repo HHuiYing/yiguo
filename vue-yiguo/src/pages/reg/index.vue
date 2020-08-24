@@ -14,7 +14,7 @@
           <el-input type="text" v-model="ruleForm.username" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="密码" prop="password">
-          <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
+          <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="submitForm('ruleForm')" style="float:left">注册</el-button>
@@ -34,8 +34,10 @@ export default {
       * value:该表单的value值
       * callback：回调函数，返回提示信息
       */
+    
      usersApi.checkName(value).then(res =>{
-       if(res.flag){
+     
+       if(res.data.code){
          //可以注册
          callback();
        }else{
@@ -60,6 +62,7 @@ export default {
         ],
         password: [
           { required: true, message: "密码不能为空", trigger: "blur" },
+           { min: 6, max: 18, message: '长度在 6 到 18 个', trigger: 'blur' },
         ],
       },
     };
@@ -69,15 +72,17 @@ export default {
   },
   methods: {
     submitForm() {
-      this.$refs.form.validate(async valid =>{
+      this.$refs["ruleForm"].validate(async valid =>{
+      
         if(valid){
+       
           //发送ajax
           try{
-            let psw = this.$md5(this.ruleForm.password);
-            // console.log(psw);
-            let p = await usersApi.reg(this.ruleForm.name, psw);
-            // console.log(p.data);
-            if (p.data.flag) {
+            let psw =this.ruleForm.password
+       
+            let p = await usersApi.reg(this.ruleForm.username, psw);
+           
+            if (p.data.code) {
               //注册成功
               this.$message({
                 message: "注册成功",
@@ -86,7 +91,7 @@ export default {
               //注册成功，跳转到登陆页面
               this.$router.push({
                 path: "/login",
-                query: { name: this.ruleForm.name }
+                query: { name: this.ruleForm.username }
               });
             } else {
               //注册失败
@@ -96,7 +101,7 @@ export default {
               });
             }
           }catch(err){
-            // console.log(err);
+           
             this.$message({
               message: "服务器异常",
               type: "error"

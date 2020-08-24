@@ -13,7 +13,7 @@
           <el-input type="text" v-model="ruleForm.username" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="密码" prop="password">
-          <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
+          <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="验证码" prop="vcode">
           <el-input type="numble" class="v-cation" v-model="ruleForm.vcode"></el-input>
@@ -48,7 +48,7 @@ export default {
       ruleForm: {
         username: "",
         password: "",
-        vcode: "",    //验证码输入框
+        vcode: "", //验证码输入框
         checked: false,
       },
       //正则校验
@@ -61,42 +61,72 @@ export default {
         ],
         vcode: [
           { required: true, message: "验证码不能为空", trigger: "blur" },
-          { validator: checkCode , trigger: "blur" },
-          ],
+          { validator: checkCode, trigger: "blur" },
+        ],
       },
     };
   },
   components: {},
   methods: {
     async getVcode() {
-      console.log(1);
       const result = await fetch(
-        `http://192.168.12.102:8080/vcode/imgHtml`
+        `http://10.3.138.12:2003/api/vcode`
       ).then((res) => res.json());
-      console.log(result);
+
       if (result.code === 1) {
         this.verificationCode = result.data;
       }
     },
     submitForm() {
-      let formName
-      this.$refs[formName].validate(async valid => {
+      // let formName
+      this.$refs["ruleForm"].validate(async valid => {
         if (valid) {
           //验证通过，可以发送请求
-          let psw = this.$md5(this.ruleForm.password);
-          let payload = {
-            username: this.ruleForm.name,
-            password: psw,
-            keep: this.ruleForm.checked
-          };
-          this.$store.dispatch("login", payload);
-        } else {
-          // console.log("error submit!!");
-          this.$message({
-            message: "服务器问题",
-            type: "error"
-          });
-          return false;
+          //       let psw = this.$md5(this.ruleForm.password);
+              //   let payload = {
+              //     username: this.ruleForm.name,
+              //     password: this.ruleForm.password,
+              //     keep: this.ruleForm.checked,
+              //     code: this.ruleForm.vcode
+              //   };
+              //   this.$store.dispatch("login", payload);
+              // } else {
+              //   // console.log("error submit!!");
+              //   this.$message({
+              //     message: "服务器问题",
+              //     type: "error"
+              //   });
+              //   return false;
+              
+            let name = this.ruleForm.username;
+            let psd = this.ruleForm.password;
+            let code = this.ruleForm.vcode;
+            let mdl = this.ruleForm.checked;
+            const result = await fetch(
+              `http://10.3.138.12:2003/api/login?username=${name}&password=${psd}&vcode=${code}&mdl=${mdl}`
+            ).then((res) => res.json());
+            if (result.code === 0) {
+              this.$message({
+                message: "账号密码错误",
+                type: "error",
+              });
+            } else if (result.code === 10) {
+              console.log(10);
+              this.$message({
+                message: "验证码错误",
+                type: "error",
+              });
+            } else {
+              // 登录成功
+              console.log(11);
+              localStorage.setItem("currentUser", JSON.stringify(result.data));
+              console.log(12);
+              this.$message({
+                message: "登录成功",
+                type: "success",
+              });
+              console.log(13);
+            }
         }
       });
     },
@@ -121,11 +151,10 @@ export default {
       },
     },
   },
-  
+
   created() {
     //验证码
     this.getVcode();
-    
   },
 };
 </script>
@@ -145,12 +174,12 @@ export default {
   padding: 30px;
   padding-right: 70px;
   border-radius: 5px;
-  .v-cation{
+  .v-cation {
     width: 60%;
     margin-right: 20px;
     float: left;
   }
-  .vcodeBtn{
+  .vcodeBtn {
     padding: 0;
     margin: 0;
     float: left;
