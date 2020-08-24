@@ -8,7 +8,7 @@ const token = require('../utils/token')
 router.get('/', async (req, res) => {
     let { username, password, vcode, mdl } = req.query
 
-    //  从会话中获取验证码并交由
+    //  从会话中获取验证码并交校验
     console.log(vcode, req.session)
     if (vcode !== req.session.vcode) {
         res.send(formatData({ code: 10 }))
