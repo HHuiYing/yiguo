@@ -14,16 +14,12 @@
 //2.导入组件
 //import Reg from './pages/reg/index'
 //import Login from './pages/login/index'
-
-
 export default {
   name: 'App',
   //1.注册组件
   components: {
       //Reg
   },
-  
-  
 }
 </script>
 
@@ -32,5 +28,4 @@ export default {
   margin: 0;
   padding: 0;
 }
-
 </style>

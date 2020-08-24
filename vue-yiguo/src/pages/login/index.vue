@@ -69,9 +69,11 @@ export default {
   components: {},
   methods: {
     async getVcode() {
-      const result = await fetch(
-        `http://10.3.138.12:2003/api/vcode`
-      ).then((res) => res.json());
+      const result = await fetch(`http://10.3.138.12:2003/api/vcode`, {
+        headers: {
+          withCredentials: true,
+        },
+      }).then((res) => res.json());
 
       if (result.code === 1) {
         this.verificationCode = result.data;
@@ -79,54 +81,60 @@ export default {
     },
     submitForm() {
       // let formName
-      this.$refs["ruleForm"].validate(async valid => {
+      this.$refs["ruleForm"].validate(async (valid) => {
         if (valid) {
           //验证通过，可以发送请求
           //       let psw = this.$md5(this.ruleForm.password);
-              //   let payload = {
-              //     username: this.ruleForm.name,
-              //     password: this.ruleForm.password,
-              //     keep: this.ruleForm.checked,
-              //     code: this.ruleForm.vcode
-              //   };
-              //   this.$store.dispatch("login", payload);
-              // } else {
-              //   // console.log("error submit!!");
-              //   this.$message({
-              //     message: "服务器问题",
-              //     type: "error"
-              //   });
-              //   return false;
-              
-            let name = this.ruleForm.username;
-            let psd = this.ruleForm.password;
-            let code = this.ruleForm.vcode;
-            let mdl = this.ruleForm.checked;
-            const result = await fetch(
-              `http://10.3.138.12:2003/api/login?username=${name}&password=${psd}&vcode=${code}&mdl=${mdl}`
-            ).then((res) => res.json());
-            if (result.code === 0) {
-              this.$message({
-                message: "账号密码错误",
-                type: "error",
-              });
-            } else if (result.code === 10) {
-              console.log(10);
-              this.$message({
-                message: "验证码错误",
-                type: "error",
-              });
-            } else {
-              // 登录成功
-              console.log(11);
-              localStorage.setItem("currentUser", JSON.stringify(result.data));
-              console.log(12);
-              this.$message({
-                message: "登录成功",
-                type: "success",
-              });
-              console.log(13);
+          //   let payload = {
+          //     username: this.ruleForm.name,
+          //     password: this.ruleForm.password,
+          //     keep: this.ruleForm.checked,
+          //     code: this.ruleForm.vcode
+          //   };
+          //   this.$store.dispatch("login", payload);
+          // } else {
+          //   // console.log("error submit!!");
+          //   this.$message({
+          //     message: "服务器问题",
+          //     type: "error"
+          //   });
+          //   return false;
+
+          let name = this.ruleForm.username;
+          let psd = this.ruleForm.password;
+          let code = this.ruleForm.vcode;
+          let mdl = this.ruleForm.checked;
+          const result = await fetch(
+            `http://10.3.138.12:2003/api/login?username=${name}&password=${psd}&vcode=${code}&mdl=${mdl}`,
+            {
+              headers: {
+                withCredentials: true,
+              },
             }
+          ).then((res) => res.json());
+          if (result.code === 0) {
+            this.$message({
+              message: "账号密码错误",
+              type: "error",
+            });
+          } else if (result.code === 10) {
+            console.log(10);
+            this.$message({
+              message: "验证码错误",
+              type: "error",
+            });
+            this.$router.push("/home");
+          } else {
+            // 登录成功
+            console.log(11);
+            localStorage.setItem("currentUser", JSON.stringify(result.data));
+            console.log(12);
+            this.$message({
+              message: "登录成功",
+              type: "success",
+            });
+            console.log(13);
+          }
         }
       });
     },
@@ -155,6 +163,12 @@ export default {
   created() {
     //验证码
     this.getVcode();
+
+    //  判断用户是否已登录
+    const authorization = localStorage.getItem("authorization");
+    if (authorization) {
+      location.href = "manage/index.html";
+    }
   },
 };
 </script>
@@ -178,6 +192,7 @@ export default {
     width: 60%;
     margin-right: 20px;
     float: left;
+    line-height: 40px;
   }
   .vcodeBtn {
     padding: 0;
