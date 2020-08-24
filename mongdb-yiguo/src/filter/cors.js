@@ -2,8 +2,8 @@ function cors(req, res, next) {
 
     // 设置响应头
     res.set({
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "Content-Type,Content-Length, Authorization, Accept,X-Requested-With,withCredentials",
+        "Access-Control-Allow-Origin": "http://localhost:8080",
+        "Access-Control-Allow-Headers": "Content-Type,Content-Length, Authorization, Accept,X-Requested-With,withCredentials:true",
         "Access-Control-Allow-Methods": "PUT,POST,GET,PATCH,DELETE,OPTIONS",
         "Access-Control-Allow-Credentials": true
     })
