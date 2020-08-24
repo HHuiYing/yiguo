@@ -12,14 +12,17 @@ router.get('/', async (req, res) => {
         noise: 3,
         ignoreChars: '0O1il',
         background: '#ccc',
+        background: "#fcf197",
         height: 40
     }
 
     //  生成验证码
     const captcha = svgCaptcha.create(options)
 
+
     //  把验证码存入会话Session
     req.session.vcode = captcha.text.toLowerCase()
+    console.log(req.session)
     res.send(formatData({ data: captcha.data }))
 })
 

@@ -16,7 +16,7 @@ router.post('/', async (req, res) => {
 })
 
 // 判断用户是否已经注册
-router.get('/check', async (req, res) => {
+router.get('/checkname', async (req, res) => {
     const { username } = req.query
     const result = await mongo.find('user', { username })
     if (result.length > 0) {

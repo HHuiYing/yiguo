@@ -8,6 +8,11 @@ const { formatData } = require("../utils/tools")
 const vcodeRouter = require("../router/vcode")
 const userRouter = require("../router/user")
 const BinxianRouter = require("./Binxian")
+const HaixianRouter = require("./Haixian")
+const LiaoliRouter = require("./Liaoli")
+const LongxiaRouter = require("./Longxia")
+const ShuicanRouter = require("./Shuican")
+const ZhongbangRouter = require("./Zhongbang")
 const regRouter = require('./reg')
 const loginRouter = require('./login')
 
@@ -53,5 +58,20 @@ router.use('/login', loginRouter)
 
 //  冰鲜 /api/Binxian
 router.use('/Binxian', BinxianRouter)
+
+//  海鲜 /api/Haixian
+router.use('/Haixian', HaixianRouter)
+
+//  料理 /api/Liaoli
+router.use('/Liaoli', LiaoliRouter)
+
+//  龙虾 /api/Longxia
+router.use('/Longxia', LongxiaRouter)
+
+//  水产 /api/Shuican
+router.use('/Shuican', ShuicanRouter)
+
+//  水产 /api/Shuican
+router.use('/Zhongbang', ZhongbangRouter)
 
 module.exports = router;

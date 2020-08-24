@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
     console.log(req.query)
     //  处理排序参数
     sort = sort.split(',')
-    const result = await mongo.find('Binxian', {}, { skip, limit, sort })
+    const result = await mongo.find('Shuican', {}, { skip, limit, sort })
     res.send(formatData({ data: result }))
 })
 
@@ -21,7 +21,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     const { id } = req.params
 
-    const result = await mongo.find('Binxian', { _id: id })
+    const result = await mongo.find('Shuican', { _id: id })
     res.send(formatData({ data: result }))
 })
 
@@ -30,7 +30,7 @@ router.delete('/:id', async (req, res) => {
     const { id } = req.params
 
     try {
-        await mongo.remove('Binxian', { _id: id })
+        await mongo.remove('Shuican', { _id: id })
         res.send(formatData())
     } catch {
         res.send(formatData({ code: 0 }))
@@ -46,7 +46,7 @@ router.put('/:id', async (req, res) => {
     let newData = { commodityName, commodityPrice, pictureUrl }
 
     try {
-        await mongo.update('Binxian', { _id: id }, { $set: newData })
+        await mongo.update('Shuican', { _id: id }, { $set: newData })
         res.send(formatData({ data: { _id: id, ...newData } }))
     } catch (err) {
         // console.log('err=',err)
@@ -58,7 +58,7 @@ router.put('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
     let { commodityName, subTitle, pictureUrl, commodityPrice } = req.body
     try {
-        const result = await mongo.insert('Binxian', { commodityName, subTitle, pictureUrl, commodityPrice })
+        const result = await mongo.insert('Shuican', { commodityName, subTitle, pictureUrl, commodityPrice })
         res.send(formatData())
     } catch {
         res.send(formatData({ code: 0 }))
