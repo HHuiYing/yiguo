@@ -41,43 +41,45 @@ const router = new VueRouter({
         {
             path: '/home',
             name: 'home',
-            component: Home
-        }, {
-            path: '/', // /->/main
-            redirect: '/main'
-        },
-        {
-            path: '/main',
-            component: Main
-        },
-        {
-            path: '/user',
-            component: User,
-            children: [
-                // 进入用户管理页面直接跳转到用户列表
+            component: Home,
+            children: [{
+                    path: '/', // /->/main
+                    redirect: '/main'
+                },
                 {
-                    path: '',
-                    redirect: 'list'
-                }, {
-                    path: 'add',
-                    component: UserAdd
-                }, {
-                    path: 'list',
-                    component: UserList
-                }, {
-                    name: 'ussrEdit',
-                    path: 'edit/:id',
-                    component: UserEdit
+                    path: '/main',
+                    component: Main
+                },
+                {
+                    path: '/user',
+                    component: User,
+                    children: [
+                        // 进入用户管理页面直接跳转到用户列表
+                        {
+                            path: '',
+                            redirect: 'list'
+                        }, {
+                            path: 'add',
+                            component: UserAdd
+                        }, {
+                            path: 'list',
+                            component: UserList
+                        }, {
+                            name: 'ussrEdit',
+                            path: 'edit/:id',
+                            component: UserEdit
+                        }
+                    ]
+                },
+                {
+                    path: '/order',
+                    component: Order
+                },
+                {
+                    path: '/goods',
+                    component: Goods
                 }
             ]
-        },
-        {
-            path: '/order',
-            component: Order
-        },
-        {
-            path: '/goods',
-            component: Goods
         },
         {
             path: '/404',
