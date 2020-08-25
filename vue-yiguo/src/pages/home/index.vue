@@ -22,7 +22,7 @@
           active-text-color="#ff0"
           @select="changeMenu"
           :default-openeds="openMenu"
-          router
+          router 
         >
           <template v-for="item in menu">
             <el-menu-item :index="item.path" :key="item.path" v-if="!item.submenu">
@@ -78,12 +78,16 @@ export default {
           icon: "el-icon-user-solid",
           submenu: [
             {
-              text: "添加用户",
-              path: "/add",
+              text: "用户编辑",
+              path: "/edit",
             },
             {
               text: "用户列表",
               path: "/list",
+            },
+            {
+              text: "用户添加",
+              path: "/add",
             },
           ],
         },
