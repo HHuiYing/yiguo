@@ -14,8 +14,17 @@ import UserAdd from '../pages/user/Add.vue'
 import UserEdit from '../pages/user/Edit.vue'
 
 import Order from '../pages/Order.vue'
-import Goods from '../pages/Goods.vue'
+import Goods from '../pages/goods/Goods.vue'
 import NotFound from '../pages/NotFound.vue'
+
+// 商品列表组件
+import Binxian from '../pages/goods/Binxian.vue'
+import Haixian from '../pages/goods/Haixian.vue'
+import Liaoli from '../pages/goods/Liaoli.vue'
+import Longxia from '../pages/goods/Longxia.vue'
+import Shuican from '../pages/goods/Shuican.vue'
+import zhongbang from '../pages/goods/Zhongbang.vue'
+
 
 // 1. 引入Vue-Router
 import VueRouter from 'vue-router'
@@ -77,7 +86,32 @@ const router = new VueRouter({
                 },
                 {
                     path: '/goods',
-                    component: Goods
+                    component: Goods,
+                    children: [
+                        // 商品页面的子组件
+                        {
+                            path: '',
+                            redirect: 'binxian'
+                        }, {
+                            path: 'binxian',
+                            component: Binxian
+                        }, {
+                            path: 'haixian',
+                            component: Haixian
+                        }, {
+                            path: 'liaoli',
+                            component: Liaoli
+                        }, {
+                            path: 'longxia',
+                            component: Longxia
+                        }, {
+                            path: 'shuican',
+                            component: Shuican
+                        }, {
+                            path: 'zhongbang',
+                            component: zhongbang
+                        }
+                    ]
                 }
             ]
         },

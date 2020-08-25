@@ -7,14 +7,30 @@ const { formatData } = require('../utils/tools')
 
 //  api/binxian
 router.get('/', async (req, res) => {
-    let { page = 1, size = 10, sort = "add_time" } = req.query
+    let { page = 1, size = 10, sort = "add_time", code, name } = req.query
     const skip = (page - 1) * size
     const limit = size * 1
-    console.log(req.query)
+ 
     //  处理排序参数
     sort = sort.split(',')
-    const result = await mongo.find('Shuican', {}, { skip, limit, sort })
-    res.send(formatData({ data: result }))
+    if (code) {
+        let reg = new RegExp(code)
+        const result = await mongo.find('Shuican', { commodityCode: reg }, { skip, limit, sort })
+        res.send(formatData({ data: result }))
+      
+    } else if (name) {
+        let reg = new RegExp(name)
+        const result = await mongo.find('Shuican', { commodityName: reg }, { skip, limit, sort })
+        res.send(formatData({ data: result }))
+    // } else if (prices) {
+    //     let reg = new RegExp(prices)
+    //     const result = await mongo.find('Shuican', { commodityPrice: reg }, { skip, limit, sort })
+    //     res.send(formatData({ data: result }))
+    //     console.log(2, reg, result)
+    } else {
+        const result = await mongo.find('Shuican', {}, { skip, limit, sort })
+        res.send(formatData({ data: result }))
+    }
 })
 
 //  查找某个商品

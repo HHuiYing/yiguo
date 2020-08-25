@@ -1,6 +1,6 @@
 <template>
     <div>
-        goods
+        Liaoli
     </div>
 </template>
 

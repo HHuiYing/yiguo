@@ -1,5 +1,8 @@
 <template>
-  <div>Shuican</div>
+  <div>
+    goods
+    <router-view />
+  </div>
 </template>
 
 <script>

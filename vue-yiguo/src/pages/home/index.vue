@@ -94,27 +94,27 @@ export default {
           submenu: [
             {
               text: "冰鲜",
-              path: "/add",
+              path: "/binxian",
             },
             {
               text: "海鲜",
-              path: "/list",
+              path: "/haixian",
             },
             {
               text: "料理食材",
-              path: "/add",
+              path: "/liaoli",
             },
             {
               text: "龙虾",
-              path: "/list",
+              path: "/longxia",
             },
             {
               text: "水产",
-              path: "/add",
+              path: "/shuican",
             },
             {
               text: "重磅推荐",
-              path: "/list",
+              path: "/zhongbang",
             },
           ],
         },

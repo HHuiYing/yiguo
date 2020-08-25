@@ -1,6 +1,6 @@
 <template>
     <div>
-        goods
+        Haixian
     </div>
 </template>
 

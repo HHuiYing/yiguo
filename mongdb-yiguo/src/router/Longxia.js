@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
     let { page = 1, size = 10, sort = "add_time" } = req.query
     const skip = (page - 1) * size
     const limit = size * 1
-    console.log(req.query)
+   
     //  处理排序参数
     sort = sort.split(',')
     const result = await mongo.find('Longxia', {}, { skip, limit, sort })
