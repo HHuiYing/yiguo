@@ -11,10 +11,13 @@
       <el-table-column type="selection" width="50" align="center"></el-table-column>
       <el-table-column label="序号" type="index" width="60" align="center"></el-table-column>
       <el-table-column label="头像" prop="picture" min-width="100" align="center">
-        <template>
+        <!-- <template>
             <img :src="tableData[0].pictureUrl" style="height:80px; width:80px" />
+        </template> -->
+        <template>
+            <img :src="tableData.pictureUrl" style="height:80px; width:80px" />
         </template>
-        <!-- <img :src="tableData.pictureUrl" style="height:80px; width:80px" /> -->
+        
         <!-- <template slot-scope="scope">
           <el-image  :src="scope.row.tableData[0].pictureUrl" style="width: 80px; height: 80px" :fit="fill"></el-image>
         </template> -->
@@ -91,6 +94,11 @@ export default {
         },
       });
     },
+  },
+  computed:{
+    // imgUrl:function (){
+    //   return require(this.tableData.pictureUrl);
+    // }
   },
   async created() {
     const { data } = await this.$request.get("/user");

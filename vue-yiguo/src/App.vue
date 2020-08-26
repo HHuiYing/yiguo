@@ -1,8 +1,6 @@
 <template>
   <div id="app">
-    
     <router-view />
-    
   </div>
 </template>
 
@@ -17,8 +15,13 @@ export default {
  
 
 <style lang="scss" scoped>
-  * {
-    margin: 0;
-    padding: 0;
-  }
+* {
+  margin: 0;
+  padding: 0;
+}
+html,
+body,
+#app {
+  height: 100%;
+}
 </style>

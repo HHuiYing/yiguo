@@ -18,7 +18,6 @@ import UserEdit from '../pages/user/edit.vue'
 
 //订单组件
 import Order from '../pages/Order.vue'
-import OrderEdit from '../pages/order/OrderEdit.vue'
 import Goods from '../pages/goods/Goods.vue'
 import NotFound from '../pages/NotFound.vue'
 
@@ -93,13 +92,7 @@ const router = new VueRouter({
         {
           path: '/order',
           component: Order,
-          children: [
-            {
-              name: 'orderEdit',
-              path: 'edit/:id',
-              component: OrderEdit
-            }
-          ]
+         
         },
         {
           path: '/goods',

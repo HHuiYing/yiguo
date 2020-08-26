@@ -182,6 +182,7 @@ export default {
             type: "warning",
           });
         } else {
+          this.dataLength = data.data.length;
           this.tableData = data.data;
         }
 
@@ -203,6 +204,7 @@ export default {
             type: "warning",
           });
         } else {
+          this.dataLength = data.data.length;
           this.tableData = data.data;
         }
       }
@@ -223,7 +225,7 @@ export default {
 
     //  删除功能
     async handleDelete(index, row) {
-      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+      this.$confirm("此操作将永久删除该商品, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",
@@ -248,7 +250,15 @@ export default {
 
     //  关闭ddialog
     formReset() {
-      this.form = {};
+      this.form = {
+        commodityCode: "",
+        commodityName: "",
+        subTitle: "",
+        commodityPrice: "",
+        commodityComponentId: "",
+        commoditySpec: "",
+        region: "",
+      };
     },
 
     //  打开编辑页数据传输
@@ -265,7 +275,7 @@ export default {
     //  修改功能
     async Submit() {
       if (this.form.id) {
-        await this.$request.put("/Binxian/" + this.form.id, {
+        const { data } = await this.$request.put("/Binxian/" + this.form.id, {
           commodityCode: this.form.commodityCode,
           commodityName: this.form.commodityName,
           subTitle: this.form.subTitle,
@@ -273,6 +283,15 @@ export default {
           commodityComponentId: this.form.commodityComponentId,
           commoditySpec: this.form.commoditySpec,
         });
+
+        if (data.code) {
+          this.$message({
+            message: "修改成功",
+            type: "success",
+          });
+        } else {
+          this.$message.error("修改失败");
+        }
       } else {
         await this.$request.post("/Binxian", {
           commodityCode: this.form.commodityCode,
