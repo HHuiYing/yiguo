@@ -47,7 +47,7 @@
       <el-main>
         <el-breadcrumb separator-class="el-icon-arrow-right">
           <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-          <el-breadcrumb-item>活动管理</el-breadcrumb-item>x`
+          <el-breadcrumb-item>活动管理</el-breadcrumb-item>
           <el-breadcrumb-item>活动列表</el-breadcrumb-item>
           <el-breadcrumb-item>活动详情</el-breadcrumb-item>
         </el-breadcrumb>
@@ -78,12 +78,16 @@ export default {
           icon: "el-icon-user-solid",
           submenu: [
             {
-              text: "添加用户",
-              path: "/add",
+              text: "用户编辑",
+              path: "/edit",
             },
             {
               text: "用户列表",
               path: "/list",
+            },
+            {
+              text: "用户添加",
+              path: "/add",
             },
           ],
         },
