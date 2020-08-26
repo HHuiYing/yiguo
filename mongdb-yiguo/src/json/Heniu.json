@@ -1,0 +1,32 @@
+[{
+	"adPictureId": "99af04f8-f769-4d69-8f7b-8c80e09d178b",
+	"framesIndex": 0,
+	"adName": "和牛",
+	"pictureUrl": "https://img11.yiguoimg.com/d/items/2020/200801/9288740676315393_1125x652.jpg?w=1125&h=652",
+	"hrefType": 0,
+	"hrefValue": null,
+	"applyTerminal": 10,
+	"title": null,
+	"subTitle": null
+},{
+	"commodityComponentId": "8c19a1f8-5422-4921-aad6-4678febdce57",
+	"templateComponentId": "b18b15a7-2c3c-4d70-80ac-58960c05e5a9",
+	"commodityId": "75582c45-befe-4adf-8256-8f77c9ee9bc3",
+	"commodityCode": "6000040575",
+	"commodityName": "PAMPERO乌拉圭冷冻去骨安格斯谷饲薄裙肉牛排150g",
+	"subTitle": "丰富脂肪清新奶香 肉质弹嫩有嚼头",
+	"pictureUrl": "https://img11.yiguoimg.com/d/items/2018/180820/9288729662432532_300.jpg",
+	"cornerPictureUrl": "",
+	"commoditySpec": "/150g",
+	"commodityUnit": "盒",
+	"promotionId": "00000000-0000-0000-0000-000000000000",
+	"saleSlogan": null,
+	"commodityPrice": 39.9,
+	"commodityDashPrice": null,
+	"orderNo": 1,
+	"state": 0,
+	"leftImgUrl": null,
+	"rightImgUrl": null,
+	"commodityTagList": [],
+	"commodityAttr": null
+}]

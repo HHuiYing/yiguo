@@ -14,6 +14,7 @@ import UserAdd from '../pages/user/Add.vue'
 import UserEdit from '../pages/user/Edit.vue'
 
 import Order from '../pages/Order.vue'
+import OrderEdit from '../pages/order/OrderEdit.vue'
 import Goods from '../pages/goods/Goods.vue'
 import NotFound from '../pages/NotFound.vue'
 
@@ -82,7 +83,14 @@ const router = new VueRouter({
                 },
                 {
                     path: '/order',
-                    component: Order
+                    component: Order,
+                    children: [
+                        {
+                            name: 'orderEdit',
+                            path: 'edit/:id',
+                            component: OrderEdit
+                        }
+                    ]
                 },
                 {
                     path: '/goods',

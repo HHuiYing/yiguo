@@ -19,7 +19,7 @@
           mode="vertical"
           background-color="#545c64"
           text-color="#fff"
-          active-text-color="#ff0"
+          active-text-color="#ff0" 
           @select="changeMenu"
           :default-openeds="openMenu"
           router
