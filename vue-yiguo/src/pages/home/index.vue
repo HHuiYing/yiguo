@@ -6,8 +6,7 @@
           <img src="http://static01.yiguo.com/www/images/header/logo.png" alt /> 易果生鲜管理系统
         </el-col>
         <el-col :span="12" style="text-align:right">
-          <el-button type="text">注册</el-button>
-          <el-button type="text">登录</el-button>
+          <el-button type="text">{{username}}</el-button>
         </el-col>
       </el-row>
     </el-header>
@@ -19,7 +18,7 @@
           mode="vertical"
           background-color="#545c64"
           text-color="#fff"
-          active-text-color="#ff0" 
+          active-text-color="#ff0"
           @select="changeMenu"
           :default-openeds="openMenu"
           router
@@ -66,6 +65,7 @@ export default {
     return {
       activeIndex: "/home",
       openMenu: [],
+      username: "",
       menu: [
         {
           text: "首页",
@@ -144,6 +144,27 @@ export default {
     },
   },
   components: {},
+  async created() {
+    let currentUser = localStorage.getItem("currentUser");
+    currentUser = JSON.parse(currentUser);
+    if (!currentUser) {
+      this.$router.push("/login");
+    } else {
+      // 校验token的有效性
+
+      const result = await fetch(
+        `http://localhost:2003/api/jwtverify?authorization=${currentUser.authorization}`
+      ).then((res) => res.json());
+
+      if (result.code === 0) {
+        localStorage.removeItem("currentUser");
+        this.$router.push("/login");
+      } else {
+        // 显示用户信息
+        this.username = currentUser.username;
+      }
+    }
+  },
 };
 </script>
 

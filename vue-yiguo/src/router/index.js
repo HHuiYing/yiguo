@@ -35,132 +35,130 @@ import VueRouter from 'vue-router'
 // import usersApi from '../api/usersApi';
 
 
-Vue.use(VueRouter);    //2.使用router
+Vue.use(VueRouter); //2.使用router
 
 //3.router实例化配置参数
 const router = new VueRouter({
-  routes: [
-    {
-      path: '/', // /->/home
-      redirect: '/main'
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: Login
-    },
-    {
-      path: '/reg',
-      name: 'reg',
-      component: Reg
-    },
-    {
-      path: '/home',
-      name: 'home',
-      component: Home,
-      children: [
-        // mode: 'history', // 一般上线后改为history路由(需要额外配置服务器)
-        {
-          path: '/', // /->/main
-          redirect: '/main'
+    routes: [{
+            path: '/', // /->/home
+            redirect: '/home'
         },
         {
-          path: '/main',
-          component: Main
+            path: '/login',
+            name: 'login',
+            component: Login
         },
         {
-          path: '/user',
-          component: User,
-          children: [
-            // 进入用户管理页面直接跳转到用户列表
-            {
-              path: '',
-              redirect: 'list'
-            }, {
-              path: 'add',
-              component: UserAdd
-            }, {
-              path: 'list',
-              component: UserList
-            }, {
-              name: 'ussrEdit',
-              path: 'edit/:id',
-              component: UserEdit
-            }
-          ]
+            path: '/reg',
+            name: 'reg',
+            component: Reg
         },
         {
-          path: '/order',
-          component: Order,
-         
+            path: '/home',
+            name: 'home',
+            component: Home,
+            children: [
+                // mode: 'history', // 一般上线后改为history路由(需要额外配置服务器)
+                // {
+                //     path: '/', // /->/main
+                //     redirect: '/main'
+                // },
+                {
+                    path: '/main',
+                    component: Main
+                },
+                {
+                    path: '/user',
+                    component: User,
+                    children: [
+                        // 进入用户管理页面直接跳转到用户列表
+                        {
+                            path: '',
+                            redirect: 'list'
+                        }, {
+                            path: 'add',
+                            component: UserAdd
+                        }, {
+                            path: 'list',
+                            component: UserList
+                        }, {
+                            name: 'ussrEdit',
+                            path: 'edit/:id',
+                            component: UserEdit
+                        }
+                    ]
+                },
+                {
+                    path: '/order',
+                    component: Order,
+
+                },
+                {
+                    path: '/goods',
+                    component: Goods,
+                    children: [
+                        // 商品页面的子组件
+                        {
+                            path: '',
+                            redirect: 'binxian'
+                        }, {
+                            path: 'binxian',
+                            component: Binxian
+                        }, {
+                            path: 'haixian',
+                            component: Haixian
+                        }, {
+                            path: 'liaoli',
+                            component: Liaoli
+                        }, {
+                            path: 'longxia',
+                            component: Longxia
+                        }, {
+                            path: 'shuican',
+                            component: Shuican
+                        }, {
+                            path: 'zhongbang',
+                            component: zhongbang
+                        }
+                    ]
+                },
+                {
+                    path: '/user',
+                    name: 'user',
+                    component: User,
+                    children: [{
+                            path: '',
+                            redirect: 'list'
+                        },
+                        {
+                            path: 'add',
+                            name: 'add',
+                            component: UserAdd,
+                        },
+                        {
+                            path: 'list',
+                            name: 'list',
+                            component: UserList,
+                        },
+                        {
+                            path: 'edit/',
+                            name: 'edit',
+                            component: UserEdit,
+                        },
+                    ]
+                },
+            ]
         },
         {
-          path: '/goods',
-          component: Goods,
-          children: [
-            // 商品页面的子组件
-            {
-              path: '',
-              redirect: 'binxian'
-            }, {
-              path: 'binxian',
-              component: Binxian
-            }, {
-              path: 'haixian',
-              component: Haixian
-            }, {
-              path: 'liaoli',
-              component: Liaoli
-            }, {
-              path: 'longxia',
-              component: Longxia
-            }, {
-              path: 'shuican',
-              component: Shuican
-            }, {
-              path: 'zhongbang',
-              component: zhongbang
-            }
-          ]
+            path: '/404',
+            component: NotFound
         },
+        // 404页面效果
         {
-          path: '/user',
-          name: 'user',
-          component: User,
-          children: [
-            {
-              path: '',
-              redirect: 'list'
-            },
-            {
-              path: 'add',
-              name: 'add',
-              component: UserAdd,
-            },
-            {
-              path: 'list',
-              name: 'list',
-              component: UserList,
-            },
-            {
-              path: 'edit/',
-              name: 'edit',
-              component: UserEdit,
-            },
-          ]
-        },
-      ]
-    },
-    {
-      path: '/404',
-      component: NotFound
-    },
-  // 404页面效果
-  {
-    path: '*',
-    redirect: '/404'
-  }
-  ]
+            path: '*',
+            redirect: '/404'
+        }
+    ]
 })
 
 export default router;
