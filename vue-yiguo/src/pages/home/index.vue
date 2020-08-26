@@ -19,23 +19,23 @@
           mode="vertical"
           background-color="#545c64"
           text-color="#fff"
-          active-text-color="#ff0"
+          active-text-color="#ff0" 
           @select="changeMenu"
           :default-openeds="openMenu"
-          router 
+          router
         >
           <template v-for="item in menu">
             <el-menu-item :index="item.path" :key="item.path" v-if="!item.submenu">
               <i :class="item.icon" style="color:#fff"></i>
               {{item.text}}
             </el-menu-item>
-            <el-submenu :key="item.path" :index="item.path" v-else>
+            <el-submenu :key="item.path" :index="item.text" v-else>
               <template v-slot:title>
                 <i :class="item.icon" style="color:#fff"></i>
                 {{item.text}}
               </template>
               <el-menu-item
-                :key="sub.path"
+                :key="sub.text"
                 :index="item.path+sub.path"
                 v-for="sub in item.submenu"
               >{{sub.text}}</el-menu-item>
@@ -95,6 +95,32 @@ export default {
           text: "商品管理",
           path: "/goods",
           icon: "el-icon-grape",
+          submenu: [
+            {
+              text: "冰鲜",
+              path: "/binxian",
+            },
+            {
+              text: "海鲜",
+              path: "/haixian",
+            },
+            {
+              text: "料理食材",
+              path: "/liaoli",
+            },
+            {
+              text: "龙虾",
+              path: "/longxia",
+            },
+            {
+              text: "水产",
+              path: "/shuican",
+            },
+            {
+              text: "重磅推荐",
+              path: "/zhongbang",
+            },
+          ],
         },
         {
           text: "订单管理",
@@ -162,7 +188,7 @@ body {
     color: inherit !important;
   }
 }
-.el-container{
-    height: 100%;
+.el-container {
+  height: 100%;
 }
 </style>

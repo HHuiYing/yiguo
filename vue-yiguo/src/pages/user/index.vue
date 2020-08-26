@@ -25,4 +25,3 @@ export default {
     color: #008842;
 }
 </style> 
-

@@ -70,9 +70,7 @@ export default {
   methods: {
     async getVcode() {
       const result = await fetch(`http://10.3.138.12:2003/api/vcode`, {
-        headers: {
-          withCredentials: true,
-        },
+        credentials: "include",
       }).then((res) => res.json());
 
       if (result.code === 1) {
@@ -106,11 +104,7 @@ export default {
           let mdl = this.ruleForm.checked;
           const result = await fetch(
             `http://10.3.138.12:2003/api/login?username=${name}&password=${psd}&vcode=${code}&mdl=${mdl}`,
-            {
-              headers: {
-                withCredentials: true,
-              },
-            }
+            { credentials: "include" }
           ).then((res) => res.json());
           if (result.code === 0) {
             this.$message({
