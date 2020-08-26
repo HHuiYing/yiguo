@@ -72,21 +72,40 @@ export default {
     };
   },
   methods: {
+    //添加用户
     submitForm() {
       this.$refs["ruleForm"].validate(async (valid) => {
         console.log(13, valid);
         // valid为校验结果，全部校验通过是值为true,否则为false
         if (valid) {
-          const { userid, ruleForm } = this;
-          const { data } = await this.$request.post("/user/" + userid, {
-            ...ruleForm,
-          });
-          if (data.code === 1) {
-            this.$message({
-              type: "success",
-              message: "添加成",
-            });
-          }
+          // const { userid, ruleForm } = this;
+          // const { data } = await this.$request.post("/user/" + userid, {
+          //   ...ruleForm,
+          // });
+          // if (data.code === 1) {
+          //   this.$message({
+          //     type: "success",
+          //     message: "添加成功",
+          //   });
+          // }
+          // let form = new FormData();
+          // form.append("username", this.ruleForm.username);
+          // form.append("gender", this.ruleForm.gender);
+          // form.append("age", this.ruleForm.age);
+          // form.append("password", this.ruleForm.password);
+          // try {
+          //   const data = await this.$request.post("/user/" + userid)
+          //   //let p = await usersApi.addUser(form);
+          //   //console.log(p.data);
+          //   if (data.code === 1) {
+          //     this.$message({
+          //       type: "success",
+          //       message: "添加成功",
+          //     });
+          //   }
+          // } catch (err) {
+          //   console.log(err);
+          // }
         } else {
           console.log("error submit!!");
           return false;
@@ -97,14 +116,14 @@ export default {
   async created() {
     // const { a, b } = this.$route.query;
     const { id } = this.$route.params;
-    const { data } = await this.$request.get("/user/" + id);
+    const { data } = await this.$request.post("/user/" + id);
     this.userid = id;
     Object.assign(this.ruleForm, data.data);
   },
 };
 </script>
 <style lang="scss" scoped>
-.userHandle{
+.userHandle {
   width: 70%;
 }
 .title_user {
