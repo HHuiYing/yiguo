@@ -21,7 +21,7 @@
       <el-col :span="12">
         <div class="grid-content bg-purple-light" style="text-align:right;margin-right:10%">
           <el-button type="warning" round size="medium" @click="reset">重置</el-button>
-          <el-button type="success" round size="medium">添加</el-button>
+          <el-button type="success" round size="medium" @click="dialogFormVisible = true">添加</el-button>
         </div>
       </el-col>
     </el-row>
@@ -67,7 +67,7 @@
             @click="handleEdit(scope.$index, scope.row),dialogFormVisible = true"
           >编辑</el-button>
 
-          <el-dialog title="商品编辑" :visible.sync="dialogFormVisible">
+          <el-dialog title="商品编辑" :visible.sync="dialogFormVisible" @close="formReset">
             <el-form :model="form">
               <el-form-item label="商品代码" :label-width="formLabelWidth">
                 <el-input v-model="form.commodityCode" autocomplete="off"></el-input>
@@ -75,11 +75,11 @@
               <el-form-item label="商品名称" :label-width="formLabelWidth">
                 <el-input v-model="form.commodityName" autocomplete="off"></el-input>
               </el-form-item>
-              <el-form-item label="商品描述" :label-width="formLabelWidth">
-                <el-input v-model="form.subTitle" autocomplete="off"></el-input>
-              </el-form-item>
               <el-form-item label="商品价格" :label-width="formLabelWidth">
                 <el-input v-model="form.commodityPrice" autocomplete="off"></el-input>
+              </el-form-item>
+              <el-form-item label="商品描述" :label-width="formLabelWidth">
+                <el-input v-model="form.subTitle" autocomplete="off"></el-input>
               </el-form-item>
               <el-form-item label="商品 ID" :label-width="formLabelWidth">
                 <el-input v-model="form.commodityComponentId" autocomplete="off"></el-input>
@@ -135,14 +135,7 @@ export default {
         commodityPrice: "",
         commodityComponentId: "",
         commoditySpec: "",
-
         region: "",
-        date1: "",
-        date2: "",
-        delivery: false,
-        type: [],
-        resource: "",
-        desc: "",
       },
       formLabelWidth: "120px",
     };
@@ -253,6 +246,11 @@ export default {
         });
     },
 
+    //  关闭ddialog
+    formReset() {
+      this.form = {};
+    },
+
     //  打开编辑页数据传输
     handleEdit(index, row) {
       this.form.id = row._id;
@@ -266,14 +264,25 @@ export default {
 
     //  修改功能
     async Submit() {
-      await this.$request.put("/Binxian/" + this.form.id, {
-        commodityCode: this.form.commodityCode,
-        commodityName: this.form.commodityName,
-        subTitle: this.form.subTitle,
-        commodityPrice: this.form.commodityPrice,
-        commodityComponentId: this.form.commodityComponentId,
-        commoditySpec: this.form.commoditySpec,
-      });
+      if (this.form.id) {
+        await this.$request.put("/Binxian/" + this.form.id, {
+          commodityCode: this.form.commodityCode,
+          commodityName: this.form.commodityName,
+          subTitle: this.form.subTitle,
+          commodityPrice: this.form.commodityPrice,
+          commodityComponentId: this.form.commodityComponentId,
+          commoditySpec: this.form.commoditySpec,
+        });
+      } else {
+        await this.$request.post("/Binxian", {
+          commodityCode: this.form.commodityCode,
+          commodityName: this.form.commodityName,
+          subTitle: this.form.subTitle,
+          commodityPrice: this.form.commodityPrice,
+          commodityComponentId: this.form.commodityComponentId,
+          commoditySpec: this.form.commoditySpec,
+        });
+      }
       this.reset();
     },
   },
