@@ -13,6 +13,7 @@ const LiaoliRouter = require("./Liaoli")
 const LongxiaRouter = require("./Longxia")
 const ShuicanRouter = require("./Shuican")
 const ZhongbangRouter = require("./Zhongbang")
+const orderRouter = require("./order")
 const regRouter = require('./reg')
 const loginRouter = require('./login')
 
@@ -74,4 +75,6 @@ router.use('/Shuican', ShuicanRouter)
 //  水产 /api/Shuican
 router.use('/Zhongbang', ZhongbangRouter)
 
+//  订单 /api/order
+router.use('/order', orderRouter)
 module.exports = router;

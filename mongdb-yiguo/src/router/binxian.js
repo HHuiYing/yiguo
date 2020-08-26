@@ -38,7 +38,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     const { id } = req.params
     const result = await mongo.find('Binxian', { _id: id })
-
+    res.send(formatData({ data: result }))
 })
 
 //  删除某个商品
@@ -56,10 +56,10 @@ router.delete('/:id', async (req, res) => {
 //  修改商品
 router.put('/:id', async (req, res) => {
     const { id } = req.params
-    let { commodityName, commodityPrice, pictureUrl } = req.body
+    let { commodityName, commodityPrice, commodityCode, subTitle, commodityComponentId, commoditySpec } = req.body
 
 
-    let newData = { commodityName, commodityPrice, pictureUrl }
+    let newData = { commodityName, commodityPrice, commodityCode, subTitle, commodityComponentId, commoditySpec }
 
     try {
         await mongo.update('Binxian', { _id: id }, { $set: newData })
@@ -72,9 +72,11 @@ router.put('/:id', async (req, res) => {
 
 //  增加商品
 router.post('/', async (req, res) => {
-    let { commodityName, subTitle, pictureUrl, commodityPrice } = req.body
+    let { commodityName, commodityPrice, commodityCode, subTitle, commodityComponentId, commoditySpec } = req.body
+
+    let newData = { commodityName, commodityPrice, commodityCode, subTitle, commodityComponentId, commoditySpec }
     try {
-        const result = await mongo.insert('Binxian', { commodityName, subTitle, pictureUrl, commodityPrice })
+        const result = await mongo.insert('Binxian', newData)
         res.send(formatData())
     } catch {
         res.send(formatData({ code: 0 }))

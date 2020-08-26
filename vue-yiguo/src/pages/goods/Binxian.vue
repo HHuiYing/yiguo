@@ -87,16 +87,16 @@
               <el-form-item label="商品规格" :label-width="formLabelWidth">
                 <el-input v-model="form.commoditySpec" autocomplete="off"></el-input>
               </el-form-item>
-              <el-form-item label="商品标题" :label-width="formLabelWidth">
+              <!-- <el-form-item label="商品标题" :label-width="formLabelWidth">
                 <el-select v-model="form.region" placeholder="请选择活动区域">
                   <el-option label="区域一" value="shanghai"></el-option>
                   <el-option label="区域二" value="beijing"></el-option>
                 </el-select>
-              </el-form-item>
+              </el-form-item>-->
             </el-form>
             <div slot="footer" class="dialog-footer">
               <el-button @click="dialogFormVisible = false">取 消</el-button>
-              <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+              <el-button type="primary" @click="Submit(), dialogFormVisible = false ">确 定</el-button>
             </div>
           </el-dialog>
           <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
@@ -217,30 +217,45 @@ export default {
 
     //  重置功能
     async reset() {
-      const { data } = await this.$request.get("/Binxian", {
-        params: {
-          page: 1,
-          size: 5,
-        },
-      });
-      this.tableData = data.data;
+      const { data } = await this.$request.get("/Binxian", {});
+      //  请求所有数据的总量
+      this.dataLength = data.data.length;
+      //  根据初始值分割显示数据
+      this.tableData = data.data.slice(
+        (this.currentPage - 1) * this.pagesize,
+        this.currentPage * this.pagesize
+      );
       this.input = "";
     },
 
     //  删除功能
     async handleDelete(index, row) {
-      const result = await this.$request.delete("/Binxian/" + row._id);
-      console.log(result);
-      if (result.data.code === 1) {
-        this.$message({
-          message: "成功删除",
-          type: "success",
+      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(async () => {
+          const result = await this.$request.delete("/Binxian/" + row._id);
+          if (result.data.code === 1) {
+            this.$message({
+              message: "成功删除",
+              type: "success",
+            });
+          }
+          this.reset();
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除",
+          });
         });
-      }
-      this.reset();
     },
+
+    //  打开编辑页数据传输
     handleEdit(index, row) {
-      console.log(row);
+      this.form.id = row._id;
       this.form.commodityCode = row.commodityCode;
       this.form.commodityName = row.commodityName;
       this.form.subTitle = row.subTitle;
@@ -248,15 +263,24 @@ export default {
       this.form.commodityComponentId = row.commodityComponentId;
       this.form.commoditySpec = row.commoditySpec;
     },
+
+    //  修改功能
+    async Submit() {
+      await this.$request.put("/Binxian/" + this.form.id, {
+        commodityCode: this.form.commodityCode,
+        commodityName: this.form.commodityName,
+        subTitle: this.form.subTitle,
+        commodityPrice: this.form.commodityPrice,
+        commodityComponentId: this.form.commodityComponentId,
+        commoditySpec: this.form.commoditySpec,
+      });
+      this.reset();
+    },
   },
 
   //  挂载后
   async created() {
-    const { data } = await this.$request.get("/Binxian", {
-      params: {
-        sort: 1,
-      },
-    });
+    const { data } = await this.$request.get("/Binxian", {});
     //  请求所有数据的总量
     this.dataLength = data.data.length;
     //  根据初始值分割显示数据
