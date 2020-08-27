@@ -24,7 +24,8 @@ export default {
             params: {
                 username,
                 password
-            }
+            },
+            withCredentials: true,
         })
     },
 }

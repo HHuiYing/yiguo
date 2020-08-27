@@ -272,7 +272,7 @@ export default {
       this.form.commoditySpec = row.commoditySpec;
     },
 
-    //  修改功能
+    //  修改和添加功能
     async Submit() {
       if (this.form.id) {
         const { data } = await this.$request.put("/Binxian/" + this.form.id, {

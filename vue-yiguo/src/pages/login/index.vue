@@ -19,7 +19,7 @@
           <el-input type="numble" class="v-cation" v-model="ruleForm.vcode"></el-input>
           <el-button v-html="verificationCode" @click="getVcode" class="vcodeBtn"></el-button>
         </el-form-item>
-        <el-form-item prop="keep">
+        <el-form-item>
           <el-checkbox v-model="ruleForm.checked" @change="noLogin">7天免登录</el-checkbox>
         </el-form-item>
         <el-form-item>
@@ -101,18 +101,18 @@ export default {
           //   });
           //   return false;
 
-          let name = this.ruleForm.username;
-          let psd = this.ruleForm.password;
-          let code = this.ruleForm.vcode;
-          let mdl = this.ruleForm.checked;
+          // let name = this.ruleForm.username;
+          // let psd = this.ruleForm.password;
+          // let code = this.ruleForm.vcode;
+          // let mdl = this.ruleForm.checked;
           const { data } = await this.$request.get("/login", {
             params: {
-              username: name,
-              password: psd,
-              vcode: code,
-              mdl: mdl,
+              // username: name,
+              // password: psd,
+              // vcode: code,
+              // mdl: mdl,
+              ...this.ruleForm,
             },
-            withCredentials: true,
           });
           // const result = await fetch(
           //   `http://10.3.138.12:2003/api/login?username=${name}&password=${psd}&vcode=${code}&mdl=${mdl}`,
@@ -177,8 +177,8 @@ export default {
     this.getVcode();
     console.log(111);
     const authorization = localStorage.getItem("currentUser");
-    if(authorization){
-      this.$router.push('/home')
+    if (authorization) {
+      this.$router.push("/home");
     }
   },
 };

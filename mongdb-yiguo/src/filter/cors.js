@@ -1,9 +1,22 @@
-function cors(req, res, next) {
+const allow_origin = ['localhost:2003', 'www.laoxie.com']
 
+function cors(req, res, next) {
     // 设置响应头
+    // Access-Control-Allow-Origin
+    // Access-Control-Allow-Methods
+    // Access-Control-Allow-Headers
+
+    // res.header("Access-Control-Allow-Origin", "*");
+    // res.header("Access-Control-Allow-Headers", "Content-Type,Content-Length, Authorization, Accept,X-Requested-With");
+    // res.header("Access-Control-Allow-Methods","PUT,POST,GET,PATCH,DELETE,OPTIONS");
+
+    console.log('Origin:', req.get('host'));
+
+
+    // 获取请求者的域名
     res.set({
         "Access-Control-Allow-Origin": "http://localhost:8080",
-        "Access-Control-Allow-Headers": "Content-Type,Content-Length, Authorization, Accept,X-Requested-With,withCredentials:true",
+        "Access-Control-Allow-Headers": "Content-Type,Content-Length, Authorization, Accept,X-Requested-With",
         "Access-Control-Allow-Methods": "PUT,POST,GET,PATCH,DELETE,OPTIONS",
         "Access-Control-Allow-Credentials": true
     })
@@ -15,4 +28,5 @@ function cors(req, res, next) {
     }
 
 }
+
 module.exports = cors;
