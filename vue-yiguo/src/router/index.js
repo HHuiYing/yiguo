@@ -8,13 +8,12 @@ import Login from '../pages/login/index.vue'
 import Reg from '../pages/reg/index.vue'
 //home组件
 import Home from '../pages/home/index.vue'
-import User from '../pages/user/Default.vue'
-import UserList from '../pages/user/List.vue'
-import UserAdd from '../pages/user/Add.vue'
-import UserEdit from '../pages/user/Edit.vue'
+import User from '../pages/user/default.vue'
+import UserList from '../pages/user/list.vue'
+import UserAdd from '../pages/user/add.vue'
+import UserEdit from '../pages/user/edit.vue'
 
 import Order from '../pages/Order.vue'
-import OrderEdit from '../pages/order/OrderEdit.vue'
 import Goods from '../pages/goods/Goods.vue'
 import NotFound from '../pages/NotFound.vue'
 
@@ -75,7 +74,7 @@ const router = new VueRouter({
                             path: 'list',
                             component: UserList
                         }, {
-                            name: 'ussrEdit',
+                            name: 'userEdit',
                             path: 'edit/:id',
                             component: UserEdit
                         }
@@ -84,13 +83,6 @@ const router = new VueRouter({
                 {
                     path: '/order',
                     component: Order,
-                    children: [
-                        {
-                            name: 'orderEdit',
-                            path: 'edit/:id',
-                            component: OrderEdit
-                        }
-                    ]
                 },
                 {
                     path: '/goods',
