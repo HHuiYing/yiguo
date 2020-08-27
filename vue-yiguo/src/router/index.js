@@ -82,7 +82,7 @@ const router = new VueRouter({
                             path: 'list',
                             component: UserList
                         }, {
-                            name: 'ussrEdit',
+                            name: 'userEdit',
                             path: 'edit/:id',
                             component: UserEdit
                         }
@@ -91,7 +91,6 @@ const router = new VueRouter({
                 {
                     path: '/order',
                     component: Order,
-
                 },
                 {
                     path: '/goods',

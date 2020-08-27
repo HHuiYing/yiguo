@@ -1,40 +1,66 @@
 <template>
   <div>
-    <el-input placeholder="请输入内容" v-model="input" class="input-with-select page" clearable size="medium">
-      <el-select v-model="select" slot="prepend" placeholder="请选择" style="width:120px">
-        <el-option label="商品代码" value="1"></el-option>
-        <el-option label="商品名称" value="2"></el-option>
-        <el-option label="商品价格" value="3"></el-option>
-      </el-select>
-      <el-button slot="append" icon="el-icon-search" @click="search"></el-button>
-    </el-input>
-    <el-table
-      ref="multipleTable"
-      :data="orderlist"
-      tooltip-effect="dark"
-      style="width: 100%"
-    >
+    <el-row>
+      <el-col>
+        <div class="grid-content bg-purple">
+          <el-input
+            placeholder="请输入内容"
+            v-model="input"
+            class="input-with-select"
+            clearable
+            size="medium"
+          >
+            <el-select v-model="select" slot="prepend" style="width:120px">
+              <el-option label="商品ID" value="code"></el-option>
+              <el-option label="商品名称" value="name"></el-option>
+            </el-select>
+            <el-button slot="append" icon="el-icon-search" @click="search"></el-button>
+          </el-input>
+        </div>
+      </el-col>
+    </el-row>
+
+    <el-table ref="multipleTable" :data="orderlist" tooltip-effect="dark" style="width: 100%">
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column type="index" label="#" width="55"></el-table-column>
       <el-table-column label="图片" width="120">
         <template slot-scope="scope">
-          <img :src="scope.row.img" style="width:60px;height:60px" />
+          <img :src="scope.row.pictureUrl" style="width:60px;height:60px" />
         </template>
       </el-table-column>
+      <el-table-column label="商品ID" width="200" prop="commodityCode"></el-table-column>
+      <el-table-column prop="commodityName" label="商品名称"></el-table-column>
+      <el-table-column prop="commodityPrice" label="价格"></el-table-column>
+      <el-table-column prop="commodityNum" label="数量"></el-table-column>
 
-      <el-table-column label="商品名" width="120" prop="username"></el-table-column>
-      <el-table-column prop="age" label="年龄" width="120"></el-table-column>
-      <el-table-column prop="email" label="邮箱" show-overflow-tooltip></el-table-column>
       <el-table-column width="100px">
-        <template v-slot:default="scope">
+        <template slot-scope="scope">
           <el-button
             size="mini"
-            plain
             type="success"
             icon="el-icon-edit"
-            circle
-            @click="goto(scope.row._id)"
+            @click="handleEdit(scope.$index,scope.row),dialogFormVisible = true"
           ></el-button>
+          <el-dialog title="商品编辑" :visible.sync="dialogFormVisible">
+            <el-form :model="form">
+              <el-form-item label="商品ID" :label-width="formLabelWidth">
+                <el-input v-model="form.commodityCode" autocomplete="off"></el-input>
+              </el-form-item>
+              <el-form-item label="商品名称" :label-width="formLabelWidth">
+                <el-input v-model="form.commodityName" autocomplete="off"></el-input>
+              </el-form-item>
+              <el-form-item label="商品价格" :label-width="formLabelWidth">
+                <el-input v-model="form.commodityPrice" autocomplete="off"></el-input>
+              </el-form-item>
+              <el-form-item label="商品数量" :label-width="formLabelWidth">
+                <el-input v-model="form.commodityNum" autocomplete="off"></el-input>
+              </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+              <el-button @click="dialogFormVisible = false">取 消</el-button>
+              <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+            </div>
+          </el-dialog>
         </template>
       </el-table-column>
     </el-table>
@@ -49,8 +75,6 @@
         :total="dataLength"
       ></el-pagination>
     </div>
-
-    <router-view class="editCard" />
   </div>
 </template>
 
@@ -63,29 +87,28 @@ export default {
       currentPage: 1, // 初始第一页
       dataLength: 0,
       input: "",
-      select: "",
+      select: "code",
+
+      // 编辑表单
+      dialogFormVisible: false,
+      form: {
+        commodityCode: "",
+        commodityName: "",
+        commodityPrice: "",
+        commodityNum: "",
+
+        region: "",
+        date1: "",
+        date2: "",
+        delivery: false,
+        type: [],
+        resource: "",
+        desc: "",
+      },
+      formLabelWidth: "120px",
     };
   },
   methods: {
-    goto(id) {
-      this.$router.push({
-        name: "orderEdit",
-        params: { id },
-      });
-    },
-    async created() {
-      // console.log("List=", this);
-      // axios({
-      //     url: 'http://localhost:2003/api/goods',
-      //     method: 'get'
-      // })
-      const { data } = await this.$request.get("/order");
-
-      console.log(data.data);
-      this.orderlist = data.data;
-      // console.log(this.orderlist)
-    },
-
     // 设置每页多少条信息
     async handleSizeChange(val) {
       this.pagesize = val;
@@ -95,7 +118,7 @@ export default {
           size: this.pagesize,
         },
       });
-       this.orderlist = data.data;
+      this.orderlist = data.data;
     },
 
     // 设置到第几页 更新第几页信息
@@ -109,14 +132,82 @@ export default {
       });
       this.orderlist = data.data;
     },
-    search() {},
+
+    // 查询功能
+    async search() {
+      // 查询商品ID
+      if (this.select === "code") {
+        const { data } = await this.$request.get("/order", {
+          params: {
+            code: this.input,
+            page: this.currentPage,
+            size: this.pagesize,
+          },
+        });
+        // 若无商品，提示警告
+        if (data.data.length === 0) {
+          this.$message({
+            message: "抱歉，查询不到子数据",
+            type: "warning",
+          });
+        } else {
+          this.dataLength = data.data.length;
+          this.orderlist = data.data;
+        }
+
+        // 查询商品名称
+      } else if (this.select === "name") {
+        const { data } = await this.$request.get("/order", {
+          params: {
+            name: this.input,
+            page: this.currentPage,
+            size: this.pagesize,
+          },
+        });
+        // 若无商品 提示警告
+        if (data.data.length === 0) {
+          this.$message({
+            showClose: true,
+            message: "抱歉 查询不到此数据",
+            type: "warning",
+          });
+        } else {
+          this.orderlist = data.data;
+        }
+      }
+    },
+
+    handleEdit(index, row) {
+      console.log(row);
+      this.form.commodityCode = row.commodityCode;
+      this.form.commodityName = row.commodityName;
+      this.form.commodityPrice = row.commodityPrice;
+      this.form.commodityNum = row.commodityNum;
+    },
+
+    // 修改功能
+    async Submit() {
+      const { data } = await this.$request.put("/Binxian/" + this.form.id, {
+        commodityCode: this.form.commodityCode,
+        commodityName: this.form.commodityName,
+        commodityPrice: this.form.commodityPrice,
+        commodityNum: this.form.commodityNum,
+      });
+
+      if (data.code) {
+        this.$message({
+          message: "修改成功",
+          type: "success",
+        });
+      } else {
+        this.$message.error("修改失败");
+      }
+      this.reset();
+    }
   },
+
   async created() {
-    const { data } = await this.$request.get("/order", {
-      params: {
-        sort: 1,
-      },
-    });
+    const { data } = await this.$request.get("/order");
     //  请求所有数据的总量
     this.dataLength = data.data.length;
     //  根据初始值分割显示数据
@@ -129,15 +220,7 @@ export default {
 </script>
 
 <style lang="scss">
-.editCard {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 3;
-}
 .el-pagination {
   text-align: center;
 }
-
 </style>

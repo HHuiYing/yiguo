@@ -192,7 +192,7 @@ body {
   background-color: #d3dce6;
   color: #333;
   // text-align: center;
-  line-height: 100%;
+  line-height: 200px;
 }
 
 .el-main {
@@ -222,6 +222,6 @@ body {
   }
 }
 .el-container {
-  height: 100%;
+  height: 100%
 }
 </style>
