@@ -36,8 +36,8 @@ router.delete('/:id', async (req, res) => {
 router.put('/:id', async (req, res) => {
 
     const { id } = req.params
-    let { password, age, gender } = req.body
-    let newData = { age, gender }
+    let { password, age, gender, phone, address, birthday } = req.body
+    let newData = { password, age, gender, phone, address, birthday }
     if (password) {
         password = md5(password)
         newData.password = password
@@ -51,4 +51,15 @@ router.put('/:id', async (req, res) => {
     }
 })
 
+//  添加用户
+router.post('/', async (req, res) => {
+    let { username, password, gender, age } = req.body
+    password = md5(password)
+    try {
+        const result = await mongo.insert('user', { username, password, gender, age })
+        res.send(formatData())
+    } catch (err) {
+        res.send(formatData({ code: 0 }))
+    }
+})
 module.exports = router

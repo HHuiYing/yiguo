@@ -19,8 +19,8 @@
           <el-input type="numble" class="v-cation" v-model="ruleForm.vcode"></el-input>
           <el-button v-html="verificationCode" @click="getVcode" class="vcodeBtn"></el-button>
         </el-form-item>
-        <el-form-item prop="keep">
-          <el-checkbox v-model="ruleForm.checked">7天免登录</el-checkbox>
+        <el-form-item>
+          <el-checkbox v-model="ruleForm.checked" @change="noLogin">7天免登录</el-checkbox>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="submitForm('ruleForm')" style="float:left">登录</el-button>
@@ -69,12 +69,15 @@ export default {
   components: {},
   methods: {
     async getVcode() {
-      const result = await fetch(`http://10.3.138.12:2003/api/vcode`, {
-        credentials: "include",
-      }).then((res) => res.json());
+      const { data } = await this.$request.get("/vcode", {
+        withCredentials: true,
+      });
+      // const result = await fetch(`http://10.3.138.12:2003/api/vcode`, {
+      //   credentials: "include",
+      // }).then((res) => res.json());
 
-      if (result.code === 1) {
-        this.verificationCode = result.data;
+      if (data.code === 1) {
+        this.verificationCode = data.data;
       }
     },
     submitForm() {
@@ -98,36 +101,41 @@ export default {
           //   });
           //   return false;
 
-          let name = this.ruleForm.username;
-          let psd = this.ruleForm.password;
-          let code = this.ruleForm.vcode;
-          let mdl = this.ruleForm.checked;
-          const result = await fetch(
-            `http://10.3.138.12:2003/api/login?username=${name}&password=${psd}&vcode=${code}&mdl=${mdl}`,
-            { credentials: "include" }
-          ).then((res) => res.json());
-          if (result.code === 0) {
+          // let name = this.ruleForm.username;
+          // let psd = this.ruleForm.password;
+          // let code = this.ruleForm.vcode;
+          // let mdl = this.ruleForm.checked;
+          const { data } = await this.$request.get("/login", {
+            params: {
+              // username: name,
+              // password: psd,
+              // vcode: code,
+              // mdl: mdl,
+              ...this.ruleForm,
+            },
+          });
+          // const result = await fetch(
+          //   `http://10.3.138.12:2003/api/login?username=${name}&password=${psd}&vcode=${code}&mdl=${mdl}`,
+          //   { credentials: "include" }
+          // ).then((res) => res.json());
+          if (data.code === 0) {
             this.$message({
               message: "账号密码错误",
               type: "error",
             });
-          } else if (result.code === 10) {
-            console.log(10);
+          } else if (data.code === 10) {
             this.$message({
               message: "验证码错误",
               type: "error",
             });
-            this.$router.push("/home");
           } else {
             // 登录成功
-            console.log(11);
-            localStorage.setItem("currentUser", JSON.stringify(result.data));
-            console.log(12);
+            localStorage.setItem("currentUser", JSON.stringify(data.data));
             this.$message({
               message: "登录成功",
               type: "success",
             });
-            console.log(13);
+            this.$router.push("/home");
           }
         }
       });
@@ -136,32 +144,41 @@ export default {
     gotoReg() {
       this.$router.push("/reg");
     },
-  },
-  //监听
-  watch: {
-    ruleForm: {
-      //深度监听
-      deep: true,
-      handler: function (val) {
-        //保留7天免登录的提示框
-        if (val.checked) {
-          this.$message({
-            message: "请不要再公共场合使用该功能",
-            type: "warning",
-          });
-        }
-      },
+    //  免登录
+    noLogin() {
+      if (this.ruleForm.checked) {
+        this.$message({
+          message: "请不要再公共场合使用该功能",
+          type: "warning",
+        });
+      }
     },
   },
+
+  //监听
+  // watch: {
+  //   ruleForm: {
+  //     //深度监听
+  //     deep: true,
+  //     handler: function (val) {
+  //       //保留7天免登录的提示框
+  //       if (val.checked) {
+  //         this.$message({
+  //           message: "请不要再公共场合使用该功能",
+  //           type: "warning",
+  //         });
+  //       }
+  //     },
+  //   },
+  // },
 
   created() {
     //验证码
     this.getVcode();
-
-    //  判断用户是否已登录
-    const authorization = localStorage.getItem("authorization");
+    console.log(111);
+    const authorization = localStorage.getItem("currentUser");
     if (authorization) {
-      location.href = "manage/index.html";
+      this.$router.push("/home");
     }
   },
 };

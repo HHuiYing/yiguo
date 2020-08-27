@@ -15,6 +15,8 @@ router.get('/', async (req, res) => {
         return
     }
 
+
+
     //  密码加密
     password = md5(password)
 
@@ -28,6 +30,7 @@ router.get('/', async (req, res) => {
         }
         result = result[0]
         result.authorization = authorization
+        console.log(result)
         res.send(formatData({ data: result }))
     } else {
         res.send(formatData({ code: 0 }))

@@ -93,7 +93,7 @@ export default {
           if (data.code === 1) {
             this.$message({
               type: "success",
-              message: "修改成",
+              message: "修改成功",
             });
           }
         } else {
