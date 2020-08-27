@@ -187,7 +187,7 @@ export default {
 
     // 修改功能
     async Submit() {
-      const { data } = await this.$request.put("/Binxian/" + this.form.id, {
+      const { data } = await this.$request.put("/order/" + this.form.id, {
         commodityCode: this.form.commodityCode,
         commodityName: this.form.commodityName,
         commodityPrice: this.form.commodityPrice,
@@ -203,7 +203,7 @@ export default {
         this.$message.error("修改失败");
       }
       this.reset();
-    }
+    },
   },
 
   async created() {
