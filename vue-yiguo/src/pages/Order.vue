@@ -58,7 +58,7 @@
             </el-form>
             <div slot="footer" class="dialog-footer">
               <el-button @click="dialogFormVisible = false">取 消</el-button>
-              <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+              <el-button type="primary" @click="Submit(), dialogFormVisible = false" >确 定</el-button>
             </div>
           </el-dialog>
         </template>
@@ -97,14 +97,7 @@ export default {
         commodityPrice: "",
         commodityNum: "",
 
-        region: "",
-        date1: "",
-        date2: "",
-        delivery: false,
-        type: [],
-        resource: "",
-        desc: "",
-      },
+          },
       formLabelWidth: "120px",
     };
   },
@@ -179,6 +172,7 @@ export default {
 
     handleEdit(index, row) {
       console.log(row);
+      this.form.id = row._id;
       this.form.commodityCode = row.commodityCode;
       this.form.commodityName = row.commodityName;
       this.form.commodityPrice = row.commodityPrice;
@@ -202,7 +196,14 @@ export default {
       } else {
         this.$message.error("修改失败");
       }
-      this.reset();
+      const result = await this.$request.get("/order");
+    //  请求所有数据的总量
+    this.dataLength = result.data.data.length;
+    //  根据初始值分割显示数据
+    this.orderlist = result.data.data.slice(
+      (this.currentPage - 1) * this.pagesize,
+      this.currentPage * this.pagesize
+    );
     },
   },
 
