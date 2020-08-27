@@ -6,7 +6,13 @@
           <img src="http://static01.yiguo.com/www/images/header/logo.png" alt /> 易果生鲜管理系统
         </el-col>
         <el-col :span="12" style="text-align:right">
-          <el-button type="text">{{username}}</el-button>
+          <el-dropdown trigger="click" @command="handleCommand">
+            <el-button type="primary" class="el-dropdown-link">{{username}}</el-button>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item>个人中心</el-dropdown-item>
+              <el-dropdown-item command="btnLogout">退出</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
         </el-col>
       </el-row>
     </el-header>
@@ -44,12 +50,12 @@
       </el-aside>
 
       <el-main>
-        <el-breadcrumb separator-class="el-icon-arrow-right">
+        <!-- <el-breadcrumb separator-class="el-icon-arrow-right">
           <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
           <el-breadcrumb-item>活动管理</el-breadcrumb-item>
           <el-breadcrumb-item>活动列表</el-breadcrumb-item>
           <el-breadcrumb-item>活动详情</el-breadcrumb-item>
-        </el-breadcrumb>
+        </el-breadcrumb>-->
         <div style="padding:15px 0;">
           <router-view />
         </div>
@@ -132,15 +138,22 @@ export default {
   },
   methods: {
     goto(path, idx) {
-      console.log(this.$router);
       this.$router.push(path);
       this.currentIndex = idx;
     },
     back() {
-      this.$$router.back();
+      this.$router.back();
     },
     changeMenu(path) {
       this.activeIndex = path;
+    },
+
+    //  登出
+    handleCommand(command) {
+      if (command === "btnLogout") {
+        localStorage.removeItem("currentUser");
+        this.$router.push("/login");
+      }
     },
   },
   components: {},
@@ -151,7 +164,6 @@ export default {
       this.$router.push("/login");
     } else {
       // 校验token的有效性
-
       const result = await fetch(
         `http://localhost:2003/api/jwtverify?authorization=${currentUser.authorization}`
       ).then((res) => res.json());

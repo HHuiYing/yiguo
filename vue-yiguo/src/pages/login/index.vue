@@ -20,7 +20,7 @@
           <el-button v-html="verificationCode" @click="getVcode" class="vcodeBtn"></el-button>
         </el-form-item>
         <el-form-item prop="keep">
-          <el-checkbox v-model="ruleForm.checked">7天免登录</el-checkbox>
+          <el-checkbox v-model="ruleForm.checked" @change="noLogin">7天免登录</el-checkbox>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="submitForm('ruleForm')" style="float:left">登录</el-button>
@@ -144,30 +144,42 @@ export default {
     gotoReg() {
       this.$router.push("/reg");
     },
-  },
-  //监听
-  watch: {
-    ruleForm: {
-      //深度监听
-      deep: true,
-      handler: function (val) {
-        //保留7天免登录的提示框
-        if (val.checked) {
-          this.$message({
-            message: "请不要再公共场合使用该功能",
-            type: "warning",
-          });
-        }
-      },
+    //  免登录
+    noLogin() {
+      if (this.ruleForm.checked) {
+        this.$message({
+          message: "请不要再公共场合使用该功能",
+          type: "warning",
+        });
+      }
     },
   },
+
+  //监听
+  // watch: {
+  //   ruleForm: {
+  //     //深度监听
+  //     deep: true,
+  //     handler: function (val) {
+  //       //保留7天免登录的提示框
+  //       if (val.checked) {
+  //         this.$message({
+  //           message: "请不要再公共场合使用该功能",
+  //           type: "warning",
+  //         });
+  //       }
+  //     },
+  //   },
+  // },
 
   created() {
     //验证码
     this.getVcode();
     console.log(111);
-    const authorization = localStorage.getItem("authorization");
-    console.log(localStorage, authorization);
+    const authorization = localStorage.getItem("currentUser");
+    if(authorization){
+      this.$router.push('/home')
+    }
   },
 };
 </script>
