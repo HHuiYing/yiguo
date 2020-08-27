@@ -1,15 +1,9 @@
 import axios from 'axios';
-
+const baseUrl = process.env.NODE_ENV === "production" ? "http://10.3.138.12:2003" : "http://localhost:2003"
 const request = axios.create({
-    baseURL: 'http://10.3.138.12:2003/api'
+    baseURL: baseUrl + "/api",
+    
+    withCredentials: true,
 });
-
-
-// export const nsg = axios.create({
-//     baseURL:'http://www.nsg.com'
-// });
-
-// axios.get(url,config)
-// axios.post(url,data,config)
 
 export default request;

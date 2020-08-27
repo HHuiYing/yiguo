@@ -11,7 +11,7 @@
             size="medium"
           >
             <el-select v-model="select" slot="prepend" style="width:120px">
-              <el-option label="商品代码" value="code"></el-option>
+              <el-option label="商品ID" value="code"></el-option>
               <el-option label="商品名称" value="name"></el-option>
             </el-select>
             <el-button slot="append" icon="el-icon-search" @click="search"></el-button>
@@ -32,35 +32,35 @@
       <el-table-column prop="commodityName" label="商品名称"></el-table-column>
       <el-table-column prop="commodityPrice" label="价格"></el-table-column>
       <el-table-column prop="commodityNum" label="数量"></el-table-column>
-      
+
       <el-table-column width="100px">
         <template slot-scope="scope">
           <el-button
             size="mini"
             type="success"
             icon="el-icon-edit"
-            @click="handleEdit(scope.$index,scope.row),dialogFormVisible = true"></el-button>
-            <el-dialog title="商品编辑" :visible.sync="dialogFormVisible">
-              <el-form :model="form">
-                <el-form-item label="商品ID" :label-width="formLabelWidth">
-                  <el-input v-model="form.commodityCode" autocomplete="off"></el-input>
-                </el-form-item>
-                <el-form-item label="商品名称" :label-width="formLabelWidth">
-                  <el-input v-model="form.commodityName" autocomplete="off"></el-input>
-                </el-form-item>
-                <el-form-item label="商品价格" :label-width="formLabelWidth">
-                  <el-input v-model="form.commodityPrice" autocomplete="off"></el-input>
-                </el-form-item>
-                <el-form-item label="商品数量" :label-width="formLabelWidth">
-                  <el-input v-model="form.commodityNum" autocomplete="off"></el-input>
-                </el-form-item>
-              </el-form>
-              <div slot="footer" class="dialog-footer">
-                <el-button @click="dialogFormVisible = false">取 消</el-button>
-                <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
-              </div>
-            </el-dialog>
-          
+            @click="handleEdit(scope.$index,scope.row),dialogFormVisible = true"
+          ></el-button>
+          <el-dialog title="商品编辑" :visible.sync="dialogFormVisible">
+            <el-form :model="form">
+              <el-form-item label="商品ID" :label-width="formLabelWidth">
+                <el-input v-model="form.commodityCode" autocomplete="off"></el-input>
+              </el-form-item>
+              <el-form-item label="商品名称" :label-width="formLabelWidth">
+                <el-input v-model="form.commodityName" autocomplete="off"></el-input>
+              </el-form-item>
+              <el-form-item label="商品价格" :label-width="formLabelWidth">
+                <el-input v-model="form.commodityPrice" autocomplete="off"></el-input>
+              </el-form-item>
+              <el-form-item label="商品数量" :label-width="formLabelWidth">
+                <el-input v-model="form.commodityNum" autocomplete="off"></el-input>
+              </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+              <el-button @click="dialogFormVisible = false">取 消</el-button>
+              <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+            </div>
+          </el-dialog>
         </template>
       </el-table-column>
     </el-table>
@@ -109,8 +109,6 @@ export default {
     };
   },
   methods: {
-    
-
     // 设置每页多少条信息
     async handleSizeChange(val) {
       this.pagesize = val;
@@ -135,7 +133,49 @@ export default {
       this.orderlist = data.data;
     },
 
-    search() {},
+    // 查询功能
+    async search() {
+      // 查询商品ID
+      if (this.select === "code") {
+        const { data } = await this.$request.get("/order", {
+          params: {
+            code: this.input,
+            page: this.currentPage,
+            size: this.pagesize,
+          },
+        });
+        // 若无商品，提示警告
+        if (data.data.length === 0) {
+          this.$message({
+            message: "抱歉，查询不到子数据",
+            type: "warning",
+          });
+        } else {
+          this.dataLength = data.data.length;
+          this.orderlist = data.data;
+        }
+
+        // 查询商品名称
+      } else if (this.select === "name") {
+        const { data } = await this.$request.get("/order", {
+          params: {
+            name: this.input,
+            page: this.currentPage,
+            size: this.pagesize,
+          },
+        });
+        // 若无商品 提示警告
+        if (data.data.length === 0) {
+          this.$message({
+            showClose: true,
+            message: "抱歉 查询不到此数据",
+            type: "warning",
+          });
+        } else {
+          this.orderlist = data.data;
+        }
+      }
+    },
 
     handleEdit(index, row) {
       console.log(row);
@@ -144,6 +184,26 @@ export default {
       this.form.commodityPrice = row.commodityPrice;
       this.form.commodityNum = row.commodityNum;
     },
+
+    // 修改功能
+    async Submit() {
+      const { data } = await this.$request.put("/Binxian/" + this.form.id, {
+        commodityCode: this.form.commodityCode,
+        commodityName: this.form.commodityName,
+        commodityPrice: this.form.commodityPrice,
+        commodityNum: this.form.commodityNum,
+      });
+
+      if (data.code) {
+        this.$message({
+          message: "修改成功",
+          type: "success",
+        });
+      } else {
+        this.$message.error("修改失败");
+      }
+      this.reset();
+    }
   },
 
   async created() {
