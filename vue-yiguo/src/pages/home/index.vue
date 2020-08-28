@@ -75,7 +75,7 @@ export default {
       menu: [
         {
           text: "首页",
-          path: "/home",
+          path: "/main",
           icon: "el-icon-s-home",
         },
         {

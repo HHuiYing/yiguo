@@ -59,10 +59,10 @@ const router = new VueRouter({
             component: Home,
             children: [
                 // mode: 'history', // 一般上线后改为history路由(需要额外配置服务器)
-                // {
-                //     path: '/', // /->/main
-                //     redirect: '/main'
-                // },
+                {
+                    path: '/', // /->/main
+                    redirect: '/main'
+                },
                 {
                     path: '/main',
                     component: Main
