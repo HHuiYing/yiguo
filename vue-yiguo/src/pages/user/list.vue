@@ -10,17 +10,16 @@
     >
       <el-table-column type="selection" width="50" align="center"></el-table-column>
       <el-table-column label="序号" type="index" width="60" align="center"></el-table-column>
-      <el-table-column label="头像" prop="picture" min-width="100" align="center">
+      <el-table-column label="头像" prop="pictureUrl" min-width="100" align="center">
         <!-- <template>
             <img :src="tableData[0].pictureUrl" style="height:80px; width:80px" />
-        </template> -->
-        <template>
-            <img :src="tableData.pictureUrl" style="height:80px; width:80px" />
+        </template>-->
+        <template v-slot:default="scope">
+          <img :src="scope.row.pictureUrl" style="height:80px; width:80px" />
         </template>
-        
         <!-- <template slot-scope="scope">
           <el-image  :src="scope.row.tableData[0].pictureUrl" style="width: 80px; height: 80px" :fit="fill"></el-image>
-        </template> -->
+        </template>-->
       </el-table-column>
       <el-table-column label="姓名" prop="username" min-width="100" align="center"></el-table-column>
       <el-table-column label="年龄" prop="age" min-width="60" align="center"></el-table-column>
@@ -60,9 +59,7 @@
 export default {
   data() {
     return {
-      tableData: [
-          
-      ],
+      tableData: [],
       currentId: "",
     };
   },
@@ -95,7 +92,7 @@ export default {
       });
     },
   },
-  computed:{
+  computed: {
     // imgUrl:function (){
     //   return require(this.tableData.pictureUrl);
     // }

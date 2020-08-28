@@ -69,13 +69,13 @@ export default {
   name: "App",
   data() {
     return {
-      activeIndex: "/home",
+      activeIndex: "/main",
       openMenu: [],
       username: "",
       menu: [
         {
           text: "首页",
-          path: "/home",
+          path: "/main",
           icon: "el-icon-s-home",
         },
         {
@@ -145,6 +145,7 @@ export default {
       this.$router.back();
     },
     changeMenu(path) {
+      console.log("openMenu", this.openMenu);
       this.activeIndex = path;
     },
 
