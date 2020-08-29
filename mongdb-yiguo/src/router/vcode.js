@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
         ignoreChars: '0O1il',
         background: '#ccc',
         background: "#fcf197",
-        height: 40
+        height: 50
     }
 
     //  生成验证码

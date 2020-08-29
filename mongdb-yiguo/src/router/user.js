@@ -36,12 +36,8 @@ router.delete('/:id', async (req, res) => {
 router.put('/:id', async (req, res) => {
 
     const { id } = req.params
-    let { password, age, gender, phone, address, birthday } = req.body
-    let newData = { password, age, gender, phone, address, birthday }
-    if (password) {
-        password = md5(password)
-        newData.password = password
-    }
+    let { age, gender, phone, address, birthday } = req.body
+    let newData = { age, gender, phone, address, birthday }
 
     try {
         await mongo.update("user", { _id: id }, { $set: newData })

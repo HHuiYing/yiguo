@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h2 class="user-manage">订单管理</h2>
     <el-row>
       <el-col>
         <div class="grid-content bg-purple">
@@ -58,7 +59,7 @@
             </el-form>
             <div slot="footer" class="dialog-footer">
               <el-button @click="dialogFormVisible = false">取 消</el-button>
-              <el-button type="primary" @click="Submit(), dialogFormVisible = false" >确 定</el-button>
+              <el-button type="primary" @click="Submit(), dialogFormVisible = false">确 定</el-button>
             </div>
           </el-dialog>
         </template>
@@ -96,8 +97,7 @@ export default {
         commodityName: "",
         commodityPrice: "",
         commodityNum: "",
-
-          },
+      },
       formLabelWidth: "120px",
     };
   },
@@ -197,13 +197,13 @@ export default {
         this.$message.error("修改失败");
       }
       const result = await this.$request.get("/order");
-    //  请求所有数据的总量
-    this.dataLength = result.data.data.length;
-    //  根据初始值分割显示数据
-    this.orderlist = result.data.data.slice(
-      (this.currentPage - 1) * this.pagesize,
-      this.currentPage * this.pagesize
-    );
+      //  请求所有数据的总量
+      this.dataLength = result.data.data.length;
+      //  根据初始值分割显示数据
+      this.orderlist = result.data.data.slice(
+        (this.currentPage - 1) * this.pagesize,
+        this.currentPage * this.pagesize
+      );
     },
   },
 
@@ -220,8 +220,20 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .el-pagination {
   text-align: center;
+}
+.user-manage{
+    width: 100%;
+    height: 40px;
+    margin: 10px 0;
+    padding-left: 5px;
+    background: rgb(248, 247, 247);
+    border-radius: 5px;
+    line-height: 40px;
+    font-weight: normal;
+    font-size: 18px;
+    color: #008842;
 }
 </style>

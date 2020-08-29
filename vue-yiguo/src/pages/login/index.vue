@@ -31,8 +31,6 @@
   </div>
 </template>
 <script>
-//import usersApi from "@/api/usersApi"; //引入接口
-//import { setToken, setUser } from "@/utils/auth"; //引入cookie设置的相关方法
 export default {
   data() {
     //验证码
@@ -84,27 +82,6 @@ export default {
       // let formName
       this.$refs["ruleForm"].validate(async (valid) => {
         if (valid) {
-          //验证通过，可以发送请求
-          //       let psw = this.$md5(this.ruleForm.password);
-          //   let payload = {
-          //     username: this.ruleForm.name,
-          //     password: this.ruleForm.password,
-          //     keep: this.ruleForm.checked,
-          //     code: this.ruleForm.vcode
-          //   };
-          //   this.$store.dispatch("login", payload);
-          // } else {
-          //   // console.log("error submit!!");
-          //   this.$message({
-          //     message: "服务器问题",
-          //     type: "error"
-          //   });
-          //   return false;
-
-          // let name = this.ruleForm.username;
-          // let psd = this.ruleForm.password;
-          // let code = this.ruleForm.vcode;
-          // let mdl = this.ruleForm.checked;
           const { data } = await this.$request.get("/login", {
             params: {
               // username: name,
@@ -114,10 +91,6 @@ export default {
               ...this.ruleForm,
             },
           });
-          // const result = await fetch(
-          //   `http://10.3.138.12:2003/api/login?username=${name}&password=${psd}&vcode=${code}&mdl=${mdl}`,
-          //   { credentials: "include" }
-          // ).then((res) => res.json());
           if (data.code === 0) {
             this.$message({
               message: "账号密码错误",
@@ -209,7 +182,12 @@ export default {
     margin: 0;
     float: left;
     border: none;
-    height: 40px;
+    height: 50px;
+    overflow: hidden;
+    svg {
+      position: absolute;
+      top: -5px;
+    }
   }
   .goReg {
     margin-left: 10px;

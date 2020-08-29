@@ -20,13 +20,11 @@
       <el-aside width="200px">
         <el-menu
           style="height:100%"
-          :default-active="activeIndex"
+          :default-active="$route.path"
           mode="vertical"
           background-color="#545c64"
           text-color="#fff"
           active-text-color="#ff0"
-          @select="changeMenu"
-          :default-openeds="openMenu"
           router
         >
           <template v-for="item in menu">
@@ -69,13 +67,13 @@ export default {
   name: "App",
   data() {
     return {
-      activeIndex: "/home",
+      activeIndex: "/main",
       openMenu: [],
       username: "",
       menu: [
         {
           text: "首页",
-          path: "/home",
+          path: "/main",
           icon: "el-icon-s-home",
         },
         {
@@ -144,9 +142,6 @@ export default {
     back() {
       this.$router.back();
     },
-    changeMenu(path) {
-      this.activeIndex = path;
-    },
 
     //  登出
     handleCommand(command) {
@@ -180,7 +175,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 html {
   height: 100%;
 }
@@ -222,6 +217,6 @@ body {
   }
 }
 .el-container {
-  height: 100%
+  height: 100%;
 }
 </style>
