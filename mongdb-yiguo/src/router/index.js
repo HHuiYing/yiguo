@@ -16,6 +16,7 @@ const ZhongbangRouter = require("./Zhongbang")
 const orderRouter = require("./order")
 const regRouter = require('./reg')
 const loginRouter = require('./login')
+const uploadRouter = require('./upload')
 
 //  CORS跨域
 router.use(cors)
@@ -56,6 +57,9 @@ router.use('/reg', regRouter)
 
 //  用户登录
 router.use('/login', loginRouter)
+
+//  上传
+router.use('/upload', uploadRouter)
 
 //  冰鲜 /api/Binxian
 router.use('/Binxian', BinxianRouter)
