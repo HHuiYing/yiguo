@@ -7,7 +7,7 @@ const { formatData } = require('../utils/tools')
 
 //  api/binxian
 router.get('/', async (req, res) => {
-    let { page = 1, size = 10000, sort = "add_time", code, name } = req.query
+    let { page = 1, size = 10000, sort = "commodityCode", code, name } = req.query
     const skip = (page - 1) * size
     const limit = size * 1
     //  处理排序参数

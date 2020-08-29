@@ -23,12 +23,6 @@ import NotFound from '../pages/NotFound.vue'
 
 // 商品列表组件
 import Binxian from '../pages/goods/Binxian.vue'
-import Haixian from '../pages/goods/Haixian.vue'
-import Liaoli from '../pages/goods/Liaoli.vue'
-import Longxia from '../pages/goods/Longxia.vue'
-import Shuican from '../pages/goods/Shuican.vue'
-import zhongbang from '../pages/goods/Zhongbang.vue'
-
 
 // 1. 引入Vue-Router
 import VueRouter from 'vue-router'
@@ -79,6 +73,7 @@ const router = new VueRouter({
                             path: 'add',
                             component: UserAdd
                         }, {
+                            name:"UserList",
                             path: 'list',
                             component: UserList
                         }, {
@@ -102,24 +97,46 @@ const router = new VueRouter({
                             redirect: 'binxian'
                         }, {
                             path: 'binxian',
+                            meta: {
+                                path: "Binxian"
+                            },
                             component: Binxian
                         }, {
                             path: 'haixian',
-                            component: Haixian
+                            meta: {
+                                path: "Haixian"
+                            },
+                            component: Binxian
                         }, {
                             path: 'liaoli',
-                            component: Liaoli
+                            meta: {
+                                path: "Liaoli"
+                            },
+                            component: Binxian
                         }, {
                             path: 'longxia',
-                            component: Longxia
+                            meta: {
+                                path: "Longxia"
+                            },
+                            component: Binxian
                         }, {
                             path: 'shuican',
-                            component: Shuican
+                            meta: {
+                                path: "Shuican"
+                            },
+                            component: Binxian
                         }, {
                             path: 'zhongbang',
-                            component: zhongbang
+                            meta: {
+                                path: "Zhongbang"
+                            },
+                            component: Binxian
                         }
-                    ]
+                    ],
+                    beforeEnter(to, from, next) {
+                        console.log("beforeEnter", to, from)
+                        next()
+                    }
                 },
                 {
                     path: '/user',

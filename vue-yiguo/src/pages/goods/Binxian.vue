@@ -125,7 +125,7 @@ export default {
       dataLength: 0,
       input: "",
       select: "code",
-
+      path: "binxian", //  跳转页面的路径
       // 编辑表单
       dialogFormVisible: false,
       form: {
@@ -141,10 +141,9 @@ export default {
     };
   },
   methods: {
-    //  设置每页多少条信息
-    async handleSizeChange(val) {
-      this.pagesize = val;
-      const { data } = await this.$request.get("/Binxian", {
+    //  根据分页与分页数量获取数据
+    async getData() {
+      const { data } = await this.$request.get(`/${this.path}`, {
         params: {
           page: this.currentPage,
           size: this.pagesize,
@@ -153,23 +152,35 @@ export default {
       this.tableData = data.data;
     },
 
+    //  dialog 表单数据
+    dialog() {
+      return {
+        commodityCode: this.form.commodityCode,
+        commodityName: this.form.commodityName,
+        subTitle: this.form.subTitle,
+        commodityPrice: this.form.commodityPrice,
+        commodityComponentId: this.form.commodityComponentId,
+        commoditySpec: this.form.commoditySpec,
+      };
+    },
+
+    //  设置每页多少条信息
+    handleSizeChange(val) {
+      this.pagesize = val;
+      this.getData();
+    },
+
     //  设置到第几页 更新第几页信息
     async handleCurrentChange(val) {
       this.currentPage = val;
-      const { data } = await this.$request.get("/Binxian", {
-        params: {
-          page: this.currentPage,
-          size: this.pagesize,
-        },
-      });
-      this.tableData = data.data;
+      this.getData();
     },
 
     //  查询功能
     async search() {
       //  查询商品代码
       if (this.select === "code") {
-        const { data } = await this.$request.get("/Binxian", {
+        const { data } = await this.$request.get(`/${this.path}`, {
           params: {
             code: this.input,
             page: this.currentPage,
@@ -188,7 +199,7 @@ export default {
 
         //  查询商品名称
       } else if (this.select === "name") {
-        const { data } = await this.$request.get("/Binxian", {
+        const { data } = await this.$request.get(`/${this.path}`, {
           params: {
             name: this.input,
             page: this.currentPage,
@@ -212,7 +223,7 @@ export default {
 
     //  重置功能
     async reset() {
-      const { data } = await this.$request.get("/Binxian", {});
+      const { data } = await this.$request.get(`/${this.path}`, {});
       //  请求所有数据的总量
       this.dataLength = data.data.length;
       //  根据初始值分割显示数据
@@ -231,7 +242,7 @@ export default {
         type: "warning",
       })
         .then(async () => {
-          const result = await this.$request.delete("/Binxian/" + row._id);
+          const result = await this.$request.delete(`/${this.path}/` + row._id);
           if (result.data.code === 1) {
             this.$message({
               message: "成功删除",
@@ -275,14 +286,10 @@ export default {
     //  修改和添加功能
     async Submit() {
       if (this.form.id) {
-        const { data } = await this.$request.put("/Binxian/" + this.form.id, {
-          commodityCode: this.form.commodityCode,
-          commodityName: this.form.commodityName,
-          subTitle: this.form.subTitle,
-          commodityPrice: this.form.commodityPrice,
-          commodityComponentId: this.form.commodityComponentId,
-          commoditySpec: this.form.commoditySpec,
-        });
+        const { data } = await this.$request.put(
+          `/${this.path}/` + this.form.id,
+          this.dialog()
+        );
 
         if (data.code) {
           this.$message({
@@ -293,30 +300,31 @@ export default {
           this.$message.error("修改失败");
         }
       } else {
-        await this.$request.post("/Binxian", {
-          commodityCode: this.form.commodityCode,
-          commodityName: this.form.commodityName,
-          subTitle: this.form.subTitle,
-          commodityPrice: this.form.commodityPrice,
-          commodityComponentId: this.form.commodityComponentId,
-          commoditySpec: this.form.commoditySpec,
-        });
+        await this.$request.post(`/${this.path}`, this.dialog());
       }
+      this.reset();
+    },
+  },
+
+  //  监听动态路由改变
+  watch: {
+    "$route.path"() {
+      console.log(this.$route.meta.path, this.path, this.$route);
+      this.path = this.$route.meta.path;
       this.reset();
     },
   },
 
   //  挂载后
   async created() {
-    const { data } = await this.$request.get("/Binxian", {});
-    //  请求所有数据的总量
-    this.dataLength = data.data.length;
-    //  根据初始值分割显示数据
-    this.tableData = data.data.slice(
-      (this.currentPage - 1) * this.pagesize,
-      this.currentPage * this.pagesize
-    );
+    this.reset();
   },
+
+  //  监听动态路由改变
+  // beforeRouteUpdate(to, from, next) {
+  //   console.log("beforeRouteUpdate(to,from,next)", to, from);
+  //   next();
+  // },
 };
 </script>
 
