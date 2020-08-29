@@ -73,6 +73,7 @@ const router = new VueRouter({
                             path: 'add',
                             component: UserAdd
                         }, {
+                            name:"UserList",
                             path: 'list',
                             component: UserList
                         }, {

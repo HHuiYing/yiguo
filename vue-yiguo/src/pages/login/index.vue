@@ -170,7 +170,6 @@ export default {
     width: 60%;
     margin-right: 20px;
     float: left;
-    line-height: 40px;
   }
   .vcodeBtn {
     padding: 0;
