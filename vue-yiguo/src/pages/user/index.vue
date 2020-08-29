@@ -15,7 +15,7 @@ export default {
 .user-manage{
     width: 100%;
     height: 40px;
-    margin: 10px 0;
+    margin: 0 0 15px;
     padding-left: 5px;
     background: rgb(248, 247, 247);
     border-radius: 5px;

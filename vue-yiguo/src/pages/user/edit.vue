@@ -8,7 +8,7 @@
         </el-form-item>
         <!-- <el-form-item label="密码" prop="password">
           <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
-        </el-form-item> -->
+        </el-form-item>-->
         <el-form-item label="性别" prop="gender">
           <el-select v-model="ruleForm.gender">
             <el-option label="男" value="male"></el-option>
@@ -33,25 +33,31 @@
         </el-form-item>
       </el-form>
     </div>
+    <!-- 头像 -->
+    <div class="avatarUpload">
+      <div>
+        <el-upload
+          class="avatar-uploader"
+          action="https://jsonplaceholder.typicode.com/posts/"
+          :show-file-list="false"
+          :on-success="handleAvatarSuccess"
+          :before-upload="beforeAvatarUpload"
+        >
+          <img v-if="imageUrl" :src="imageUrl" class="avatar" />
+          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+        </el-upload>
+      </div>
+      <h4 class="avatar-txt">更换头像</h4>
+    </div>
   </div>
 </template>
 <script>
 export default {
   data() {
-    // var checkAge = (rule, value, callback) => {
-    //   if (value < 18) {
-    //     // 如果输入的值不符合规则，则提示信息
-    //     return callback(new Error("未满18禁止浏览"));
-    //   } else {
-    //     // 规则通过后的回掉
-    //     callback();
-    //   }
-    // };
     return {
       userid: "",
       ruleForm: {
         username: "",
-        //password: "",
         gender: "male",
         age: "",
         phone: "",
@@ -59,23 +65,7 @@ export default {
         birthday: "",
       },
       rules: {
-        address: [
-          { required: true, message: "地址必填", trigger: "change" },
-          //   { type: "number", message: "只能输入数字", trigger: "change" },
-          // 自定义校验规则
-          //   {
-          //     validator: checkAge,
-          //     trigger: "change",
-          //   },
-        ],
-        // password: [
-        //   {
-        //     min: 6,
-        //     max: 12,
-        //     message: "密码长度必须在 6 到 12 个字符",
-        //     trigger: "blur",
-        //   },
-        // ],
+        address: [{ required: true, message: "地址必填", trigger: "change" }],
         phone: [{ required: true, message: "手机号码必填", trigger: "change" }],
       },
     };
@@ -111,18 +101,54 @@ export default {
     const { id } = this.$route.params;
     const { data } = await this.$request.get("/user/" + id);
     this.userid = id;
-    Object.assign(this.ruleForm, data.data);
+    console.log("data.data", data.data);
+    Object.assign(this.ruleForm, data.data[0]);
   },
 };
 </script>
 <style lang="scss" scoped>
-.userHandle{
-    width: 70%;
+.userHandle {
+  width: 70%;
+  float: left;
+}
+.avatarUpload {
+  float: right;
+  margin: 30px 100px 0 0;
 }
 .title_user {
   font-size: 16px;
   font-weight: normal;
   margin: 0 0 15px;
   padding-left: 5px;
+}
+.avatar-uploader{
+  border: 1px dashed #d9d9d9;
+}
+.avatar-uploader .el-upload {
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.avatar-uploader .el-upload:hover {
+  border-color: #409eff;
+}
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  line-height: 178px;
+  text-align: center;
+}
+.avatar {
+  width: 178px;
+  height: 178px;
+  display: block;
+}
+.avatar-txt{
+  text-align: center;
+  line-height: 26px;
+  font-weight: normal;
 }
 </style>
