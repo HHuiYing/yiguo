@@ -6,9 +6,9 @@
         <el-form-item label="用户名" prop="username">
           <el-input type="text" v-bind:value="ruleForm.username" disabled></el-input>
         </el-form-item>
-        <el-form-item label="密码" prop="password">
+        <!-- <el-form-item label="密码" prop="password">
           <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item label="性别" prop="gender">
           <el-select v-model="ruleForm.gender">
             <el-option label="男" value="male"></el-option>
@@ -51,7 +51,7 @@ export default {
       userid: "",
       ruleForm: {
         username: "",
-        password: "",
+        //password: "",
         gender: "male",
         age: "",
         phone: "",
@@ -68,14 +68,14 @@ export default {
           //     trigger: "change",
           //   },
         ],
-        password: [
-          {
-            min: 6,
-            max: 12,
-            message: "密码长度必须在 6 到 12 个字符",
-            trigger: "blur",
-          },
-        ],
+        // password: [
+        //   {
+        //     min: 6,
+        //     max: 12,
+        //     message: "密码长度必须在 6 到 12 个字符",
+        //     trigger: "blur",
+        //   },
+        // ],
         phone: [{ required: true, message: "手机号码必填", trigger: "change" }],
       },
     };
@@ -95,6 +95,7 @@ export default {
               type: "success",
               message: "修改成功",
             });
+            this.$router.push("list");
           }
         } else {
           console.log("error submit!!");
