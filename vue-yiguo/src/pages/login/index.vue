@@ -130,25 +130,19 @@ export default {
 
   //监听
   // watch: {
-  //   ruleForm: {
-  //     //深度监听
-  //     deep: true,
-  //     handler: function (val) {
-  //       //保留7天免登录的提示框
-  //       if (val.checked) {
-  //         this.$message({
-  //           message: "请不要再公共场合使用该功能",
-  //           type: "warning",
-  //         });
-  //       }
-  //     },
+  //   "ruleForm.checked"(newVal, oldVal) {
+  //     if (this.ruleForm.checked) {
+  //       this.$message({
+  //         message: "请不要再公共场合使用该功能",
+  //         type: "warning",
+  //       });
+  //     }
   //   },
-  // },
+  //  },
 
   created() {
     //验证码
     this.getVcode();
-    console.log(111);
     const authorization = localStorage.getItem("currentUser");
     if (authorization) {
       this.$router.push("/home");

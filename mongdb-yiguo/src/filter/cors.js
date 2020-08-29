@@ -10,9 +10,6 @@ function cors(req, res, next) {
     // res.header("Access-Control-Allow-Headers", "Content-Type,Content-Length, Authorization, Accept,X-Requested-With");
     // res.header("Access-Control-Allow-Methods","PUT,POST,GET,PATCH,DELETE,OPTIONS");
 
-    console.log('Origin:', req.get('host'));
-
-
     // 获取请求者的域名
     res.set({
         "Access-Control-Allow-Origin": "http://localhost:8080",
