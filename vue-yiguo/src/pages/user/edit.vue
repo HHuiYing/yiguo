@@ -34,7 +34,7 @@
       </el-form>
     </div>
     <!-- 头像 -->
-    <div class="avatarUpload">
+    <!-- <div class="avatarUpload">
       <div>
         <el-upload
           class="avatar-uploader"
@@ -48,7 +48,7 @@
         </el-upload>
       </div>
       <h4 class="avatar-txt">更换头像</h4>
-    </div>
+    </div>-->
   </div>
 </template>
 <script>
@@ -121,7 +121,7 @@ export default {
   margin: 0 0 15px;
   padding-left: 5px;
 }
-.avatar-uploader{
+.avatar-uploader {
   border: 1px dashed #d9d9d9;
 }
 .avatar-uploader .el-upload {
@@ -146,7 +146,7 @@ export default {
   height: 178px;
   display: block;
 }
-.avatar-txt{
+.avatar-txt {
   text-align: center;
   line-height: 26px;
   font-weight: normal;

@@ -18,6 +18,10 @@ const regRouter = require('./reg')
 const loginRouter = require('./login')
 const uploadRouter = require('./upload')
 
+const lunboRouter = require('./lunbo')
+
+
+
 //  CORS跨域
 router.use(cors)
 
@@ -76,9 +80,13 @@ router.use('/Longxia', LongxiaRouter)
 //  水产 /api/Shuican
 router.use('/Shuican', ShuicanRouter)
 
-//  水产 /api/Shuican
+//  重磅 /api/Zhongbang
 router.use('/Zhongbang', ZhongbangRouter)
 
 //  订单 /api/order
 router.use('/order', orderRouter)
+
+//  轮播 /api/lunbo
+router.use('/lunbo', lunboRouter)
+
 module.exports = router;
