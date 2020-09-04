@@ -35,6 +35,11 @@ const routes = [{
         component: () => import('../views/List.vue')
     },
     {
+        path: '/mine',
+        name: 'Mine',
+        component: () => import('../views/Mine.vue')
+    },
+    {
         path: '/login',
         name: 'Login',
         component: () => import('../views/Login.vue')
@@ -47,6 +52,7 @@ const routes = [{
 ]
 
 const router = new VueRouter({
+    mode: 'history',
     routes
 })
 

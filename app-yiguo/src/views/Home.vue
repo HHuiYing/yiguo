@@ -38,14 +38,13 @@
 
 <script>
 import Vue from "vue";
-import { Swipe, SwipeItem, Lazyload, Grid, GridItem, Icon } from "vant";
+import { Swipe, SwipeItem, Lazyload, Grid, GridItem } from "vant";
 
 Vue.use(Swipe);
 Vue.use(SwipeItem);
 Vue.use(Lazyload);
 Vue.use(Grid);
 Vue.use(GridItem);
-Vue.use(Icon);
 
 export default {
   name: "Home",

@@ -15,10 +15,12 @@
 
 <script>
 import Vue from "vue";
-import { Tabbar, TabbarItem, Image as VanImage } from "vant";
+import { Tabbar, TabbarItem, Image as VanImage, Button, Icon } from "vant";
 Vue.use(Tabbar);
 Vue.use(TabbarItem);
 Vue.use(VanImage);
+Vue.use(Button);
+Vue.use(Icon);
 export default {
   data() {
     return {
@@ -53,3 +55,21 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+.goback {
+  background: url(../public/img/goback.png) center/34px 34px;
+  display: block;
+  width: 34px;
+  height: 34px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 10;
+}
+i,
+b {
+  font-style: normal;
+  font-weight: normal;
+}
+</style>
