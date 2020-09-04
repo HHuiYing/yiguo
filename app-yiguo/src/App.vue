@@ -67,4 +67,9 @@ export default {
   left: 10px;
   z-index: 10;
 }
+i,
+b {
+  font-style: normal;
+  font-weight: normal;
+}
 </style>
