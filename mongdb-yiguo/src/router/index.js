@@ -17,6 +17,7 @@ const orderRouter = require("./order")
 const regRouter = require('./reg')
 const loginRouter = require('./login')
 const uploadRouter = require('./upload')
+const goodsRouter = require('./goods')
 
 const lunboRouter = require('./lunbo')
 
@@ -88,5 +89,8 @@ router.use('/order', orderRouter)
 
 //  轮播 /api/lunbo
 router.use('/lunbo', lunboRouter)
+
+//  商品分类 /api/goods
+router.use('/goods', goodsRouter)
 
 module.exports = router;
