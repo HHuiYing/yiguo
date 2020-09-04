@@ -73,11 +73,11 @@
     <van-cell-group class="assess">
       <van-cell title="评价（27）" is-link value="查看全部" />
     </van-cell-group>
-    <van-cell-group class="bor-b">
+    <van-cell-group class="assess-main bor-b">
       <van-cell>
         <template #title>
           <van-image round width="32px" height="32px" src="https://img.yzcdn.cn/vant/cat.jpeg" />
-          <div class="assess-main">
+          <div class="main-left">
             <p>ya***01</p>
             <i></i>
             <p>超时未评价，系统默认好评</p>
@@ -88,7 +88,11 @@
         </template>
       </van-cell>
     </van-cell-group>
-    <div style="height:100px"></div>
+    <div class="rich">
+      <van-tag plain color="#ccc" size="large">查看图文详情</van-tag>
+    </div>
+
+    <div style="height:50px"></div>
   </div>
 </template>
 
@@ -112,6 +116,7 @@ export default {
   data() {
     return {
       goodsMsg: {},
+      value: "",
       //  轮播数据
       // swipeImg: ["img/swipe-1.jpg", "img/swipe-2.jpg"],
     };
@@ -247,16 +252,37 @@ export default {
   }
   .van-cell__value {
     color: #666;
-    font-size: 16px;
+    font-size: 14px;
   }
 }
 .assess-main {
-  display: inline-block;
-  i {
-    display: block;
-    width: 103px;
-    height: 13px;
-    background: url("../../public/img/stars.png") no-repeat top/103px 13px;
+  .van-cell__title {
+    display: flex;
+    flex: 2;
+  }
+  .main-left {
+    margin-left: 10px;
+    p {
+      margin: 5px;
+    }
+    p:first-of-type {
+      margin-top: -8px;
+    }
+    i {
+      display: block;
+      width: 103px;
+      height: 13px;
+      background: url("../../public/img/stars.png") no-repeat top/103px 30px;
+    }
+  }
+}
+.rich {
+  text-align: center;
+  .van-tag {
+    margin-top: 20px;
+    color: #999;
+    padding: 6px 30px;
+    text-align: center;
   }
 }
 .bor-b {
