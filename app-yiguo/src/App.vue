@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <router-view />
-    <van-tabbar v-model="active" route>
+    <van-tabbar v-model="active" route v-show="showTabbar">
       <van-tabbar-item
         :icon="item.icon"
         v-for="item in menu"
@@ -52,6 +52,11 @@ export default {
         },
       ],
     };
+  },
+  computed: {
+    showTabbar() {
+      return this.$store.state.common.showTabbar;
+    },
   },
 };
 </script>
