@@ -91,7 +91,16 @@
     <div class="rich">
       <van-tag plain color="#ccc" size="large">查看图文详情</van-tag>
     </div>
-
+    <van-goods-action>
+      <van-goods-action-icon icon="chat-o" text="客服" @click="onClickIcon" style="flex: 1" />
+      <van-goods-action-icon icon="cart-o" text="购物车" @click="onClickIcon" style="flex: 1" />
+      <van-goods-action-button
+        type="danger"
+        text="加入购物车"
+        style="border-radius: 0;flex:4"
+        @click="onClickButton"
+      />
+    </van-goods-action>
     <div style="height:50px"></div>
   </div>
 </template>
@@ -104,12 +113,24 @@ import Vue from "vue";
 // Vue.use(Swipe);
 // Vue.use(SwipeItem);
 
-import { ImagePreview, Cell, CellGroup, Tag, Stepper } from "vant";
+import {
+  ImagePreview,
+  Cell,
+  CellGroup,
+  Tag,
+  Stepper,
+  GoodsAction,
+  GoodsActionIcon,
+  GoodsActionButton,
+} from "vant";
 Vue.use(ImagePreview);
 Vue.use(Cell);
 Vue.use(CellGroup);
 Vue.use(Tag);
 Vue.use(Stepper);
+Vue.use(GoodsAction);
+Vue.use(GoodsActionButton);
+Vue.use(GoodsActionIcon);
 
 export default {
   name: "Goods",
@@ -146,10 +167,17 @@ export default {
       this.$router.push("/home");
     },
   },
+
   async created() {
     let { id } = this.$route.params;
     let { api } = this.$route.query;
     this.getData(id, api);
+  },
+  mounted() {
+    this.$store.commit("displayTabbar", false);
+  },
+  destroyed() {
+    this.$store.commit("displayTabbar", true);
   },
 };
 </script>

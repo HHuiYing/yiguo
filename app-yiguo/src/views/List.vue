@@ -119,6 +119,9 @@ body {
     }
   }
 }
+.van-search__action {
+  color: #11b57c;
+}
 .van-overlay {
   top: 50px;
   background: rgba(0, 0, 0, 0.4);

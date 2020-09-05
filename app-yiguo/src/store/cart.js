@@ -1,4 +1,4 @@
-import request from '../utils/request'
+// import request from '../utils/request'
 
 const cart = {
     //  添加命名空间
