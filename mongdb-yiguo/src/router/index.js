@@ -12,7 +12,6 @@ const HaixianRouter = require("./Haixian")
 const LiaoliRouter = require("./Liaoli")
 const LongxiaRouter = require("./Longxia")
 const ShuicanRouter = require("./Shuican")
-const ZhongbangRouter = require("./Zhongbang")
 const orderRouter = require("./order")
 const regRouter = require('./reg')
 const loginRouter = require('./login')
@@ -20,6 +19,8 @@ const uploadRouter = require('./upload')
 const goodsRouter = require('./goods')
 
 const lunboRouter = require('./lunbo')
+const ZhongbangRouter = require("./Zhongbang")
+const surpriseRouter = require('./surprise')
 
 
 
@@ -92,5 +93,8 @@ router.use('/lunbo', lunboRouter)
 
 //  商品分类 /api/goods
 router.use('/goods', goodsRouter)
+
+//  每日惊喜 /api/surprise
+router.use('/surprise', surpriseRouter)
 
 module.exports = router;

@@ -3,8 +3,8 @@
 ## 演示
     + 官网: http://www.yiguo.com/
     + 上线网址
-        - 后台管理系统：
-        - webApp：
+        - 后台管理系统：http://120.24.62.247:2005/
+        - webApp：http://120.24.62.247:2004/
 
 ## git仓库地址: 
     https://github.com/gzh52003/yiguo
