@@ -121,7 +121,8 @@ export default {
       zhongbanglist: [],
       surprise: [],
       binxian: [],
-      shuican: []
+      shuican: [],
+       value: "",
     };
   },
   components: {},

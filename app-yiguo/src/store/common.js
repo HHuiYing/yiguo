@@ -1,7 +1,8 @@
 
+import request from "../utils/request"
 const common = {
     state: {
-        username:'',
+        username: '',
         showTabbar: true,
 
     },
@@ -9,26 +10,30 @@ const common = {
 
     },
     mutations: {
-        login(){
+        async login(state) {
+
             let currentUser = localStorage.getItem("currentUser");
             currentUser = JSON.parse(currentUser);
             if (!currentUser) {
-              this.$router.push("/login");
+                // this.$router.push("/login");
             } else {
-              // 校验token的有效性
-              const result = await fetch(
-                `http://10.3.138.12:2003/api/jwtverify?authorization=${currentUser.authorization}`
-              ).then((res) => res.json());
-        
-              if (result.code === 0) {
-                localStorage.removeItem("currentUser");
-                this.$router.push("/login");
-              } else {
-                // 显示用户信息
-                state.username = currentUser.username;
-              }
+                // 校验token的有效性
+                const { data } = await request.get(
+                    `/jwtverify?authorization=${currentUser.authorization}`
+                )
+
+                if (data.code === 0) {
+                    localStorage.removeItem("currentUser");
+                    // this.$router.push("/login");
+                } else {
+                    // 显示用户信息
+                    state.username = currentUser.username;
+                }
             }
         },
+        logout(state) {
+            state.username=''
+         },
         displayTabbar(state, payload) {
             state.showTabbar = payload
         }

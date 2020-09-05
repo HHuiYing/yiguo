@@ -61,6 +61,7 @@ export default {
   },
   created() {
     this.$store.dispatch("getCart");
+    this.$store.commit('login')
     // console.log(this.$store)
   },
 };

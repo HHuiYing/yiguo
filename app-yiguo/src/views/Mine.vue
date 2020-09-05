@@ -2,14 +2,15 @@
   <div class="mineWrap" style="background:#f4f4f4">
     <!-- 头像&登录/注册&设置 -->
     <div class="mySet">
+      <button @click="handleCommand">111{{isShow()}}</button>
       <!-- 头像 -->
       <div class="headerImg">
         <img src="../.././public/img/touxiang.jpg" alt />
       </div>
       <!-- 登录注册 -->
       <p class="regLogin">
-        <span @click="gotoLogin" v-if="isShow">登录/注册</span>
-        <span v-else>{{username}}</span>
+        <span v-if="isShow">{{loginName()}}111</span>
+        <span @click="gotoLogin" v-else>登录/注册</span>
       </p>
       <!-- 设置 -->
       <div class="topSet">
@@ -50,8 +51,8 @@ export default {
   name: "Mine",
   data() {
     return {
-      username: "",
-     
+      // username: "",
+
       //recommend: [],
       menu: [
         {
@@ -90,7 +91,7 @@ export default {
     };
   },
   computed: {
-    login(){return this.$store.state.common.username}
+   
   },
   methods: {
     //跳转到登陆页面
@@ -105,8 +106,27 @@ export default {
       //   this.isShow = !this.isShow;
       // }
     },
+    isShow() {
+      if (this.$store.state.common.login) {
+        return "true";
+      }else{
+        return "false"
+      }
+    },
+
+     handleCommand() {
+    
+        localStorage.removeItem("currentUser");
+        this.$router.push("/login");
+        this.$store.commit('logout')
+      
+    },
+     loginName() {
+      return this.$store.state.common.username;
+    },
   },
   async created() {
+    console.log(this.$store.state.common.username)    
     // let currentUser = localStorage.getItem("currentUser");
     // currentUser = JSON.parse(currentUser);
     // if (!currentUser) {
@@ -116,7 +136,6 @@ export default {
     //   const result = await fetch(
     //     `http://10.3.138.12:2003/api/jwtverify?authorization=${currentUser.authorization}`
     //   ).then((res) => res.json());
-
     //   if (result.code === 0) {
     //     localStorage.removeItem("currentUser");
     //     this.$router.push("/Login");
