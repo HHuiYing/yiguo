@@ -53,6 +53,10 @@ export default {
       ],
     };
   },
+  created(){
+    console.log(this.$store)
+    // this.$store.commit('login')
+  }
 };
 </script>
 

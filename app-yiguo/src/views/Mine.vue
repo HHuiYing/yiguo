@@ -7,7 +7,10 @@
         <img src="../.././public/img/touxiang.jpg" alt />
       </div>
       <!-- 登录注册 -->
-      <p class="regLogin" @click="gotoLogin">登录/注册</p>
+      <p class="regLogin">
+        <span @click="gotoLogin" v-if="isShow">登录/注册</span>
+        <span v-else>{{username}}</span>
+      </p>
       <!-- 设置 -->
       <div class="topSet">
         <van-icon name="setting-o" size="20" color="#ffffff" />
@@ -47,7 +50,9 @@ export default {
   name: "Mine",
   data() {
     return {
-      recommend: [],
+      username: "",
+     
+      //recommend: [],
       menu: [
         {
           text: "优惠券",
@@ -84,12 +89,42 @@ export default {
       ],
     };
   },
-  components: {},
-  methods:{
+  computed: {
+    login(){return this.$store.state.common.username}
+  },
+  methods: {
     //跳转到登陆页面
-    gotoLogin(){
+    gotoLogin() {
       this.$router.push("/Login");
-    }
+    },
+    //显示切换
+    change: function () {
+      // if (result.code === 0) {
+      //   this.isShow = !this.isShow;
+      // } else {
+      //   this.isShow = !this.isShow;
+      // }
+    },
+  },
+  async created() {
+    // let currentUser = localStorage.getItem("currentUser");
+    // currentUser = JSON.parse(currentUser);
+    // if (!currentUser) {
+    //   this.$router.push("/Login");
+    // } else {
+    //   // 校验token的有效性
+    //   const result = await fetch(
+    //     `http://10.3.138.12:2003/api/jwtverify?authorization=${currentUser.authorization}`
+    //   ).then((res) => res.json());
+
+    //   if (result.code === 0) {
+    //     localStorage.removeItem("currentUser");
+    //     this.$router.push("/Login");
+    //   } else {
+    //     // 显示用户信息
+    //     this.username = currentUser.username;
+    //   }
+    // }
   },
 };
 </script>
@@ -158,12 +193,12 @@ export default {
   .orderCon {
     margin: 7px 0;
     width: 100%;
-    /deep/.van-grid-item__text{
-      font-size: 9px; 
+    /deep/.van-grid-item__content {
+      padding: 16px 4px;
     }
   }
-  .myMessage{
-    .van-grid-item{
+  .myMessage {
+    .van-grid-item {
       color: #ccc;
     }
   }
