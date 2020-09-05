@@ -21,6 +21,7 @@ Vue.use(TabbarItem);
 Vue.use(VanImage);
 Vue.use(Button);
 Vue.use(Icon);
+
 export default {
   data() {
     return {
@@ -57,6 +58,10 @@ export default {
     showTabbar() {
       return this.$store.state.common.showTabbar;
     },
+  },
+  created() {
+    this.$store.dispatch("getCart");
+    // console.log(this.$store)
   },
 };
 </script>

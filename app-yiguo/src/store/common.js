@@ -1,6 +1,8 @@
+
 const common = {
     state: {
-        showTabbar: true
+        showTabbar: true,
+
     },
     getters: {
 

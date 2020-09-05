@@ -30,13 +30,13 @@
 </template>
 <script>
 import Vue from "vue";
-import { TreeSelect, Grid, GridItem, Search, Toast, Overlay } from "vant";
+import { TreeSelect, Grid, GridItem, Search, Overlay, Toast } from "vant";
 Vue.use(TreeSelect);
 Vue.use(Grid);
 Vue.use(GridItem);
 Vue.use(Search);
-Vue.use(Toast);
 Vue.use(Overlay);
+Vue.use(Toast);
 export default {
   name: "List",
   data() {

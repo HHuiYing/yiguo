@@ -1,6 +1,6 @@
 <template>
   <div class="goods">
-    <i class="goback" @click="goback"></i>
+    <i class="goback" @click="goback('/home')"></i>
     <van-image :src="goodsMsg.pictureUrl" @click="showBig"></van-image>
     <!--轮播效果-->
     <!-- <van-swipe :autoplay="3000">
@@ -92,14 +92,9 @@
       <van-tag plain color="#ccc" size="large">查看图文详情</van-tag>
     </div>
     <van-goods-action>
-      <van-goods-action-icon icon="chat-o" text="客服" @click="onClickIcon" style="flex: 1" />
-      <van-goods-action-icon icon="cart-o" text="购物车" @click="onClickIcon" style="flex: 1" />
-      <van-goods-action-button
-        type="danger"
-        text="加入购物车"
-        style="border-radius: 0;flex:4"
-        @click="onClickButton"
-      />
+      <van-goods-action-icon icon="wap-home-o" text="首页" @click="goback('/home')" style="flex: 1" />
+      <van-goods-action-icon icon="cart-o" text="购物车" @click="goback('/cart')" style="flex: 1" />
+      <van-goods-action-button type="danger" text="加入购物车" @click="addGoods" />
     </van-goods-action>
     <div style="height:50px"></div>
   </div>
@@ -122,6 +117,7 @@ import {
   GoodsAction,
   GoodsActionIcon,
   GoodsActionButton,
+  Toast,
 } from "vant";
 Vue.use(ImagePreview);
 Vue.use(Cell);
@@ -131,6 +127,7 @@ Vue.use(Stepper);
 Vue.use(GoodsAction);
 Vue.use(GoodsActionButton);
 Vue.use(GoodsActionIcon);
+Vue.use(Toast);
 
 export default {
   name: "Goods",
@@ -162,9 +159,14 @@ export default {
       });
     },
 
-    //  返回首页
-    goback() {
-      this.$router.push("/home");
+    //  返回
+    goback(path) {
+      this.$router.push(path);
+    },
+
+    //  加入购物车
+    addGoods() {
+      Toast.success("加入购物车成功");
     },
   },
 
@@ -315,5 +317,11 @@ export default {
 }
 .bor-b {
   border-bottom: 10px solid #f4f4f4;
+}
+.van-goods-action-button {
+  border-radius: 0;
+  flex: 4;
+  margin: 0;
+  height: 100%;
 }
 </style>
