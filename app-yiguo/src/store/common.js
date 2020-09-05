@@ -1,6 +1,9 @@
+
 const common = {
     state: {
-        username:''
+        username:'',
+        showTabbar: true,
+
     },
     getters: {
 
@@ -25,9 +28,13 @@ const common = {
                 state.username = currentUser.username;
               }
             }
+        },
+        displayTabbar(state, payload) {
+            state.showTabbar = payload
         }
+
     },
-    action: {
+    actions: {
 
     }
 }

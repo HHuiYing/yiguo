@@ -1,6 +1,6 @@
 <template>
   <div class="goods">
-    <i class="goback" @click="goback"></i>
+    <i class="goback" @click="goback('/home')"></i>
     <van-image :src="goodsMsg.pictureUrl" @click="showBig"></van-image>
     <!--轮播效果-->
     <!-- <van-swipe :autoplay="3000">
@@ -73,11 +73,11 @@
     <van-cell-group class="assess">
       <van-cell title="评价（27）" is-link value="查看全部" />
     </van-cell-group>
-    <van-cell-group class="bor-b">
+    <van-cell-group class="assess-main bor-b">
       <van-cell>
         <template #title>
           <van-image round width="32px" height="32px" src="https://img.yzcdn.cn/vant/cat.jpeg" />
-          <div class="assess-main">
+          <div class="main-left">
             <p>ya***01</p>
             <i></i>
             <p>超时未评价，系统默认好评</p>
@@ -88,7 +88,15 @@
         </template>
       </van-cell>
     </van-cell-group>
-    <div style="height:100px"></div>
+    <div class="rich">
+      <van-tag plain color="#ccc" size="large">查看图文详情</van-tag>
+    </div>
+    <van-goods-action>
+      <van-goods-action-icon icon="wap-home-o" text="首页" @click="goback('/home')" style="flex: 1" />
+      <van-goods-action-icon icon="cart-o" text="购物车" @click="goback('/cart')" style="flex: 1" />
+      <van-goods-action-button type="danger" text="加入购物车" @click="addGoods" />
+    </van-goods-action>
+    <div style="height:50px"></div>
   </div>
 </template>
 
@@ -100,18 +108,33 @@ import Vue from "vue";
 // Vue.use(Swipe);
 // Vue.use(SwipeItem);
 
-import { ImagePreview, Cell, CellGroup, Tag, Stepper } from "vant";
+import {
+  ImagePreview,
+  Cell,
+  CellGroup,
+  Tag,
+  Stepper,
+  GoodsAction,
+  GoodsActionIcon,
+  GoodsActionButton,
+  Toast,
+} from "vant";
 Vue.use(ImagePreview);
 Vue.use(Cell);
 Vue.use(CellGroup);
 Vue.use(Tag);
 Vue.use(Stepper);
+Vue.use(GoodsAction);
+Vue.use(GoodsActionButton);
+Vue.use(GoodsActionIcon);
+Vue.use(Toast);
 
 export default {
   name: "Goods",
   data() {
     return {
       goodsMsg: {},
+      value: "",
       //  轮播数据
       // swipeImg: ["img/swipe-1.jpg", "img/swipe-2.jpg"],
     };
@@ -136,15 +159,27 @@ export default {
       });
     },
 
-    //  返回首页
-    goback() {
-      this.$router.push("/home");
+    //  返回
+    goback(path) {
+      this.$router.push(path);
+    },
+
+    //  加入购物车
+    addGoods() {
+      Toast.success("加入购物车成功");
     },
   },
+
   async created() {
     let { id } = this.$route.params;
     let { api } = this.$route.query;
     this.getData(id, api);
+  },
+  mounted() {
+    this.$store.commit("displayTabbar", false);
+  },
+  destroyed() {
+    this.$store.commit("displayTabbar", true);
   },
 };
 </script>
@@ -247,19 +282,46 @@ export default {
   }
   .van-cell__value {
     color: #666;
-    font-size: 16px;
+    font-size: 14px;
   }
 }
 .assess-main {
-  display: inline-block;
-  i {
-    display: block;
-    width: 103px;
-    height: 13px;
-    background: url("../../public/img/stars.png") no-repeat top/103px 13px;
+  .van-cell__title {
+    display: flex;
+    flex: 2;
+  }
+  .main-left {
+    margin-left: 10px;
+    p {
+      margin: 5px;
+    }
+    p:first-of-type {
+      margin-top: -8px;
+    }
+    i {
+      display: block;
+      width: 103px;
+      height: 13px;
+      background: url("../../public/img/stars.png") no-repeat top/103px 30px;
+    }
+  }
+}
+.rich {
+  text-align: center;
+  .van-tag {
+    margin-top: 20px;
+    color: #999;
+    padding: 6px 30px;
+    text-align: center;
   }
 }
 .bor-b {
   border-bottom: 10px solid #f4f4f4;
+}
+.van-goods-action-button {
+  border-radius: 0;
+  flex: 4;
+  margin: 0;
+  height: 100%;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <router-view />
-    <van-tabbar v-model="active" route>
+    <van-tabbar v-model="active" route v-show="showTabbar">
       <van-tabbar-item
         :icon="item.icon"
         v-for="item in menu"
@@ -21,6 +21,7 @@ Vue.use(TabbarItem);
 Vue.use(VanImage);
 Vue.use(Button);
 Vue.use(Icon);
+
 export default {
   data() {
     return {
@@ -53,10 +54,15 @@ export default {
       ],
     };
   },
-  created(){
-    console.log(this.$store)
-    // this.$store.commit('login')
-  }
+  computed: {
+    showTabbar() {
+      return this.$store.state.common.showTabbar;
+    },
+  },
+  created() {
+    this.$store.dispatch("getCart");
+    // console.log(this.$store)
+  },
 };
 </script>
 

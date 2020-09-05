@@ -5,9 +5,9 @@ import common from './common'
 
 Vue.use(Vuex)
 
-const store = new Vue.Store({
+const store = new Vuex.Store({
     //  store 模板化
-    module: {
+    modules: {
         cart,
         common,
     }

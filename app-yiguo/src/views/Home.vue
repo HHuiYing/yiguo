@@ -1,5 +1,14 @@
 <template>
   <div class="home">
+    <!-- 导航 -->
+    <van-sticky>
+      <van-search
+        v-model="value"
+        shape="round"
+        background="#4fc08d"
+        placeholder="请输入搜索关键词"
+      />
+    </van-sticky>
     <!--轮播图-->
     <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
       <van-swipe-item v-for="item in recommend" :key="item._id">
@@ -32,19 +41,76 @@
         </van-swipe-item>
       </van-swipe>
     </div>
-    <div style="height:100px"></div>
+    <!-- 每日惊喜 -->
+    <div class="surprise">
+      <img v-for="item in surprise" :key="item._id" style="width:100%" v-lazy="item.pictureUrl" />
+    </div>
+    <!-- 冰鲜到家 -->
+    <div class="fresh-Home">
+      <img width="100%" src="../../public/img/swipe-1.jpg" />
+      <van-swipe :loop="false" :width="124" class="swipe-goods" :show-indicators="false">
+        <van-swipe-item
+          v-for="item in binxian"
+          :key="item._id"
+          class="swipe-item"
+          @click="gotoGoods(item._id,'binxian')"
+        >
+          <img v-lazy="item.pictureUrl" />
+          <div class="swipe-content">
+            <p>{{item.commodityName}}</p>
+            <span>{{item.commodityPrice}}</span>
+            <van-icon name="cart" color="#01b27a" @click="add2cart" />
+          </div>
+        </van-swipe-item>
+      </van-swipe>
+    </div>
+    <!-- 精选水产 -->
+    <div class="aquatic">
+      <h3>— 精选水产 —</h3>
+      <van-grid :column-num="2" :gutter="10">
+        <van-grid-item 
+        v-for="item in shuican" 
+        :key="item._id" 
+        class="box"
+        @click="gotoGoods(item._id,'shuican')"
+        >
+          <img v-lazy="item.pictureUrl" />
+          <div class="swipe-content">
+            <p>{{item.commodityName}}</p>
+            <span>{{item.commodityPrice}}</span>
+            <van-icon name="cart" color="#01b27a" @click="add2cart" />
+          </div>
+        </van-grid-item>
+      </van-grid>
+    </div>
+    <div class="pagefooter" >
+      <p>沪IPC备09008015号</p>
+      <p>上海易果电子商务有限公司</p>
+    </div>
   </div>
 </template>
 
 <script>
 import Vue from "vue";
-import { Swipe, SwipeItem, Lazyload, Grid, GridItem } from "vant";
+import {
+  Swipe,
+  SwipeItem,
+  Lazyload,
+  Grid,
+  GridItem,
+  Image as VanImage,
+  Card, Sticky, Search
+} from "vant";
 
 Vue.use(Swipe);
 Vue.use(SwipeItem);
 Vue.use(Lazyload);
 Vue.use(Grid);
 Vue.use(GridItem);
+Vue.use(VanImage);
+Vue.use(Card);
+Vue.use(Sticky);
+Vue.use(Search);
 
 export default {
   name: "Home",
@@ -53,6 +119,9 @@ export default {
       recommend: [],
       goodslist: [],
       zhongbanglist: [],
+      surprise: [],
+      binxian: [],
+      shuican: []
     };
   },
   components: {},
@@ -100,6 +169,22 @@ export default {
       data: { data: zhongbanglist },
     } = await this.$request("/Zhongbang");
     this.zhongbanglist = zhongbanglist;
+
+    // 每日惊喜
+    const {
+      data: { data: surprise },
+    } = await this.$request("/surprise");
+    this.surprise = surprise;
+
+    // 冰鲜到家
+    const {
+      data: {data: binxian},
+    } = await this.$request("/binxian")
+    this.binxian = binxian
+
+    // 精选水产
+    const {data : {data: shuican}} = await this.$request("/Shuican")
+    this.shuican = shuican
   },
 };
 </script>
@@ -168,6 +253,47 @@ export default {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+  }
+}
+.surprise img {
+  display: block;
+}
+.aquatic{
+  h3{
+    text-align: center;
+  }
+  .box{
+    img{
+      width: 11rem;
+    }
+    .swipe-content {
+      padding: 0 8px 8px;
+      p {
+        margin: 0;
+        margin-bottom: 4px;
+      }
+      span {
+        font-weight: bold;
+        color: #fb3d3d;
+        font-size: 14px;
+        &::before {
+          content: "￥";
+        }
+      }
+      .van-icon-cart {
+        float: right;
+        margin-top: 2px;
+      }
+    }
+  }
+}
+.pagefooter{
+  height: 100px;
+  text-align: center;
+  p{
+    font-size: 12px;
+    color: #8d8a8a;
+    line-height: 12px;
   }
 }
 </style>
