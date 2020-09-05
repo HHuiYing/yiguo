@@ -32,6 +32,10 @@
         </van-swipe-item>
       </van-swipe>
     </div>
+    <!-- 每日惊喜 -->
+    <div class="surprise" v-for="item in surprise" :key="item._id">
+      <img v-lazy="item.pictureUrl" />
+    </div>
     <div style="height:100px"></div>
   </div>
 </template>
@@ -53,6 +57,7 @@ export default {
       recommend: [],
       goodslist: [],
       zhongbanglist: [],
+      surprise: [],
     };
   },
   components: {},
@@ -100,6 +105,12 @@ export default {
       data: { data: zhongbanglist },
     } = await this.$request("/Zhongbang");
     this.zhongbanglist = zhongbanglist;
+
+    // 每日惊喜
+    const {
+      data: { data: surprise},
+    } = await this.$request("/surprise");
+    this.surprise = surprise
   },
 };
 </script>
@@ -169,5 +180,8 @@ export default {
     white-space: nowrap;
     text-overflow: ellipsis;
   }
+}
+.surprise{
+  width: 100%;
 }
 </style>
