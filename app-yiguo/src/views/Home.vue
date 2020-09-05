@@ -33,8 +33,41 @@
       </van-swipe>
     </div>
     <!-- 每日惊喜 -->
-    <div class="surprise" v-for="item in surprise" :key="item._id">
-      <img v-lazy="item.pictureUrl" />
+    <div class="surprise">
+      <img v-for="item in surprise" :key="item._id" style="width:100%" v-lazy="item.pictureUrl" />
+    </div>
+    <!-- 冰鲜到家 -->
+    <div class="fresh-Home">
+      <img width="100%" src="../../public/img/swipe-1.jpg" />
+      <van-swipe :loop="false" :width="124" class="swipe-goods" :show-indicators="false">
+        <van-swipe-item
+          v-for="item in binxian"
+          :key="item._id"
+          class="swipe-item"
+          @click="gotoGoods(item._id,'binxian')"
+        >
+          <img v-lazy="item.pictureUrl" />
+          <div class="swipe-content">
+            <p>{{item.commodityName}}</p>
+            <span>{{item.commodityPrice}}</span>
+            <van-icon name="cart" color="#01b27a" @click="add2cart" />
+          </div>
+        </van-swipe-item>
+      </van-swipe>
+    </div>
+    <!-- 精选水产 -->
+    <div class="aquatic">
+      <h3>— 精选水产 —</h3>
+      <van-grid :column-num="2" :gutter="10">
+        <van-grid-item>
+          <van-image src="https://img.yzcdn.cn/vant/apple-1.jpg" />
+          <div class="swipe-content">
+            <p>item.commodityName</p>
+            <span>item.commodityPrice</span>
+            <van-icon name="cart" color="#01b27a" @click="add2cart" />
+          </div>
+        </van-grid-item>
+      </van-grid>
     </div>
     <div style="height:100px"></div>
   </div>
@@ -42,13 +75,23 @@
 
 <script>
 import Vue from "vue";
-import { Swipe, SwipeItem, Lazyload, Grid, GridItem } from "vant";
+import {
+  Swipe,
+  SwipeItem,
+  Lazyload,
+  Grid,
+  GridItem,
+  Image as VanImage,
+  Card
+} from "vant";
 
 Vue.use(Swipe);
 Vue.use(SwipeItem);
 Vue.use(Lazyload);
 Vue.use(Grid);
 Vue.use(GridItem);
+Vue.use(VanImage);
+Vue.use(Card);
 
 export default {
   name: "Home",
@@ -58,6 +101,8 @@ export default {
       goodslist: [],
       zhongbanglist: [],
       surprise: [],
+      binxian: [],
+      shuican: []
     };
   },
   components: {},
@@ -108,9 +153,19 @@ export default {
 
     // 每日惊喜
     const {
-      data: { data: surprise},
+      data: { data: surprise },
     } = await this.$request("/surprise");
-    this.surprise = surprise
+    this.surprise = surprise;
+
+    // 冰鲜到家
+    const {
+      data: {data: binxian},
+    } = await this.$request("/binxian")
+    this.binxian = binxian
+
+    // 精选水产
+    const {data : {data: shuican}} = await this.$request("/Shuican")
+    this.shuican = shuican
   },
 };
 </script>
@@ -181,7 +236,7 @@ export default {
     text-overflow: ellipsis;
   }
 }
-.surprise{
-  width: 100%;
+.surprise img {
+  display: block;
 }
 </style>
