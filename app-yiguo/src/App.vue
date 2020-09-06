@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <router-view />
+    <div style="height:50px"></div>
     <van-tabbar v-model="active" route v-show="showTabbar">
       <van-tabbar-item
         :icon="item.icon"
@@ -59,10 +60,26 @@ export default {
       return this.$store.state.common.showTabbar;
     },
   },
-  created() {
+  async created() {
     this.$store.dispatch("getCart");
-    this.$store.commit('login')
-    // console.log(this.$store)
+    // let currentUser = localStorage.getItem("currentUser");
+    // currentUser = JSON.parse(currentUser);
+    // if (!currentUser) {
+    //   // this.$router.push("/login");
+    // } else {
+    //   // 校验token的有效性
+    //   const { data } = await this.$request.get(
+    //     `/jwtverify?authorization=${currentUser.authorization}`
+    //   );
+
+    //   if (data.code === 0) {
+    //     localStorage.removeItem("currentUser");
+    //     // this.$router.push("/login");
+    //   } else {
+    //     // 显示用户信息
+    //     this.$store.commit("user", currentUser.username);
+    //   }
+    // }
   },
 };
 </script>

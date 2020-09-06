@@ -3,6 +3,7 @@ import request from "../utils/request"
 const common = {
     state: {
         username: '',
+        ifLogin: false,
         showTabbar: true,
 
     },
@@ -10,12 +11,27 @@ const common = {
 
     },
     mutations: {
-        async login(state) {
+        user(state, username) {
+            state.username = username
+            state.ifLogin = true
+        },
+        logout(state) {
+            state.username = ''
+            state.ifLogin = false
+        },
+        displayTabbar(state, payload) {
+            state.showTabbar = payload
+        }
+
+    },
+    actions: {
+        async login(context) {
 
             let currentUser = localStorage.getItem("currentUser");
             currentUser = JSON.parse(currentUser);
             if (!currentUser) {
                 // this.$router.push("/login");
+                context.commit('logout')
             } else {
                 // 校验token的有效性
                 const { data } = await request.get(
@@ -27,20 +43,11 @@ const common = {
                     // this.$router.push("/login");
                 } else {
                     // 显示用户信息
-                    state.username = currentUser.username;
+                    context.commit('user', currentUser.username)
+
                 }
             }
         },
-        logout(state) {
-            state.username=''
-         },
-        displayTabbar(state, payload) {
-            state.showTabbar = payload
-        }
-
-    },
-    actions: {
-
     }
 }
 

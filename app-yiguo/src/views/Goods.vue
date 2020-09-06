@@ -93,10 +93,16 @@
     </div>
     <van-goods-action>
       <van-goods-action-icon icon="wap-home-o" text="首页" @click="goback('/home')" style="flex: 1" />
-      <van-goods-action-icon icon="cart-o" text="购物车" @click="goback('/cart')" style="flex: 1" />
+      <van-goods-action-icon
+        icon="cart-o"
+        :badge="this.cartlist.length"
+        text="购物车"
+        @click="goback('/cart')"
+        style="flex: 1"
+      />
       <van-goods-action-button type="danger" text="加入购物车" @click="addGoods" />
     </van-goods-action>
-    <div style="height:50px"></div>
+    <!-- <div style="height:50px"></div> -->
   </div>
 </template>
 
@@ -139,12 +145,16 @@ export default {
       // swipeImg: ["img/swipe-1.jpg", "img/swipe-2.jpg"],
     };
   },
+  computed: {
+    cartlist() {
+      return this.$store.state.cart.goodslist;
+    },
+  },
   methods: {
     //  获取数据
     async getData(id, api) {
       const { data } = await this.$request.get(`${api}/${id}`);
       this.goodsMsg = data.data[0];
-      console.log(this.swipeImg);
     },
 
     //  点击放大图片
@@ -167,6 +177,22 @@ export default {
     //  加入购物车
     addGoods() {
       Toast.success("加入购物车成功");
+      const { commodityCode } = this.goodsMsg;
+      const current = this.cartlist.filter(
+        (item) => item.commodityCode == commodityCode
+      )[0];
+      if (current) {
+        this.$store.commit("changeQty", {
+          commodityCode,
+          qty: current.commodityNum * 1 + 1,
+        });
+      } else {
+        const goods = {
+          ...this.goodsMsg,
+          commodityNum: 1,
+        };
+        this.$store.commit("add", goods);
+      }
     },
   },
 

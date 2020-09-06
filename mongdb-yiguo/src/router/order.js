@@ -56,10 +56,11 @@ router.delete('/:id', async (req, res) => {
 //  修改商品
 router.put('/:id', async (req, res) => {
     const { id } = req.params
-    let { commodityName, commodityPrice, commodityCode, subTitle, commodityComponentId, commoditySpec } = req.body
+    let { commodityNum } = req.body
+    console.log(req.body)
 
 
-    let newData = { commodityName, commodityPrice, commodityCode, subTitle, commodityComponentId, commoditySpec }
+    let newData = { commodityNum }
 
     try {
         await mongo.update('order', { _id: id }, { $set: newData })

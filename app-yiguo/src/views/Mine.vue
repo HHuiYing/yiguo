@@ -2,14 +2,16 @@
   <div class="mineWrap" style="background:#f4f4f4">
     <!-- 头像&登录/注册&设置 -->
     <div class="mySet">
-      <button @click="handleCommand">111{{isShow()}}</button>
       <!-- 头像 -->
       <div class="headerImg">
         <img src="../.././public/img/touxiang.jpg" alt />
       </div>
       <!-- 登录注册 -->
       <p class="regLogin">
-        <span v-if="isShow">{{loginName()}}111</span>
+        <span v-if="isShow">
+          {{loginName}}
+          <van-button plain type="primary" @click="handleCommand" round size="small">退出登录</van-button>
+        </span>
         <span @click="gotoLogin" v-else>登录/注册</span>
       </p>
       <!-- 设置 -->
@@ -52,7 +54,6 @@ export default {
   data() {
     return {
       // username: "",
-
       //recommend: [],
       menu: [
         {
@@ -91,7 +92,12 @@ export default {
     };
   },
   computed: {
-   
+    isShow() {
+      return this.$store.state.common.ifLogin;
+    },
+    loginName() {
+      return this.$store.state.common.username;
+    },
   },
   methods: {
     //跳转到登陆页面
@@ -106,44 +112,12 @@ export default {
       //   this.isShow = !this.isShow;
       // }
     },
-    isShow() {
-      if (this.$store.state.common.login) {
-        return "true";
-      }else{
-        return "false"
-      }
-    },
 
-     handleCommand() {
-    
-        localStorage.removeItem("currentUser");
-        this.$router.push("/login");
-        this.$store.commit('logout')
-      
+    handleCommand() {
+      localStorage.removeItem("currentUser");
+      this.$router.push("/login");
+      this.$store.commit("logout");
     },
-     loginName() {
-      return this.$store.state.common.username;
-    },
-  },
-  async created() {
-    console.log(this.$store.state.common.username)    
-    // let currentUser = localStorage.getItem("currentUser");
-    // currentUser = JSON.parse(currentUser);
-    // if (!currentUser) {
-    //   this.$router.push("/Login");
-    // } else {
-    //   // 校验token的有效性
-    //   const result = await fetch(
-    //     `http://10.3.138.12:2003/api/jwtverify?authorization=${currentUser.authorization}`
-    //   ).then((res) => res.json());
-    //   if (result.code === 0) {
-    //     localStorage.removeItem("currentUser");
-    //     this.$router.push("/Login");
-    //   } else {
-    //     // 显示用户信息
-    //     this.username = currentUser.username;
-    //   }
-    // }
   },
 };
 </script>
@@ -221,5 +195,13 @@ export default {
       color: #ccc;
     }
   }
+}
+.van-button--plain {
+  background-color: transparent;
+  color: #fff;
+  margin-left: 10px;
+}
+.van-button--primary {
+  border: 1px solid #fff;
 }
 </style>

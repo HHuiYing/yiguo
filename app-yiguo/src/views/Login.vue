@@ -4,7 +4,7 @@
     <h2 class="headTop">登录</h2>
     <!-- 登录框 -->
     <div class="loginTable">
-      <van-form @submit="onSubmit" :model="ruleForm">
+      <van-form :model="ruleForm">
         <van-field
           v-model="ruleForm.username"
           name="username"
@@ -60,30 +60,27 @@ export default {
     };
   },
   methods: {
-    onSubmit(values) {
-      console.log("submit", values);
-    },
-    async onSend() {
-      console.log({ ...this.ruleForm });
+       async onSend() {
       const { data } = await this.$request.get("/login", {
         params: {
           ...this.ruleForm,
         },
       });
       if (data.code === 0) {
-        Toast.loading({
+        Toast.fail({
           message: "登录失败",
           forbidClick: true,
         });
       } else {
         // 登录成功
         localStorage.setItem("currentUser", JSON.stringify(data.data));
-        Toast.loading({
+        Toast.success({
           message: "登录成功",
           forbidClick: true,
         });
-        const { redirectTo = "/Home" } = this.$route.query;
-        this.$router.replace(redirectTo);
+        // const { redirectTo = "/Home" } = this.$route.query;
+        // this.$router.replace(redirectTo);
+        this.$router.push("/home");
       }
     },
     created() {

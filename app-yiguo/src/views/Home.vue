@@ -2,12 +2,7 @@
   <div class="home">
     <!-- 导航 -->
     <van-sticky>
-      <van-search
-        v-model="value"
-        shape="round"
-        background="#4fc08d"
-        placeholder="请输入搜索关键词"
-      />
+      <van-search v-model="value" shape="round" background="#4fc08d" placeholder="请输入搜索关键词" />
     </van-sticky>
     <!--轮播图-->
     <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
@@ -68,11 +63,11 @@
     <div class="aquatic">
       <h3>— 精选水产 —</h3>
       <van-grid :column-num="2" :gutter="10">
-        <van-grid-item 
-        v-for="item in shuican" 
-        :key="item._id" 
-        class="box"
-        @click="gotoGoods(item._id,'shuican')"
+        <van-grid-item
+          v-for="item in shuican"
+          :key="item._id"
+          class="box"
+          @click="gotoGoods(item._id,'shuican')"
         >
           <img v-lazy="item.pictureUrl" />
           <div class="swipe-content">
@@ -83,7 +78,7 @@
         </van-grid-item>
       </van-grid>
     </div>
-    <div class="pagefooter" >
+    <div class="pagefooter">
       <p>沪IPC备09008015号</p>
       <p>上海易果电子商务有限公司</p>
     </div>
@@ -99,7 +94,9 @@ import {
   Grid,
   GridItem,
   Image as VanImage,
-  Card, Sticky, Search
+  Card,
+  Sticky,
+  Search,
 } from "vant";
 
 Vue.use(Swipe);
@@ -122,7 +119,7 @@ export default {
       surprise: [],
       binxian: [],
       shuican: [],
-       value: "",
+      value: "",
     };
   },
   components: {},
@@ -179,13 +176,15 @@ export default {
 
     // 冰鲜到家
     const {
-      data: {data: binxian},
-    } = await this.$request("/binxian")
-    this.binxian = binxian
+      data: { data: binxian },
+    } = await this.$request("/binxian");
+    this.binxian = binxian;
 
     // 精选水产
-    const {data : {data: shuican}} = await this.$request("/Shuican")
-    this.shuican = shuican
+    const {
+      data: { data: shuican },
+    } = await this.$request("/Shuican");
+    this.shuican = shuican;
   },
 };
 </script>
@@ -259,13 +258,13 @@ export default {
 .surprise img {
   display: block;
 }
-.aquatic{
-  h3{
+.aquatic {
+  h3 {
     text-align: center;
   }
-  .box{
-    img{
-      width: 11rem;
+  .box {
+    img {
+      width: 9rem;
     }
     .swipe-content {
       padding: 0 8px 8px;
@@ -288,13 +287,19 @@ export default {
     }
   }
 }
-.pagefooter{
-  height: 100px;
+.pagefooter {
+  height: 50px;
   text-align: center;
-  p{
+  p {
     font-size: 12px;
     color: #8d8a8a;
     line-height: 12px;
   }
+}
+.aquatic {
+  background-color: #fafafa;
+}
+.pagefooter {
+  background-color: #fafafa;
 }
 </style>
