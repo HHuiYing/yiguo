@@ -294,6 +294,8 @@ export default {
     font-size: 12px;
     color: #8d8a8a;
     line-height: 12px;
+    margin: 0;
+    padding: 4px;
   }
 }
 .aquatic {
