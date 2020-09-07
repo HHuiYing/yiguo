@@ -9,6 +9,7 @@
         :key="item.name"
         :name="item.name"
         :to="item.path"
+        :badge="item.name === 'cart' ? cartlist:''"
       >{{item.text}}</van-tabbar-item>
     </van-tabbar>
   </div>
@@ -58,6 +59,9 @@ export default {
   computed: {
     showTabbar() {
       return this.$store.state.common.showTabbar;
+    },
+    cartlist() {
+      return this.$store.state.cart.goodslist.length;
     },
   },
   async created() {
