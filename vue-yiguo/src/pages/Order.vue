@@ -171,7 +171,6 @@ export default {
     },
 
     handleEdit(index, row) {
-      console.log(row);
       this.form.id = row._id;
       this.form.commodityCode = row.commodityCode;
       this.form.commodityName = row.commodityName;
@@ -224,16 +223,16 @@ export default {
 .el-pagination {
   text-align: center;
 }
-.user-manage{
-    width: 100%;
-    height: 40px;
-    margin: 10px 0;
-    padding-left: 5px;
-    background: rgb(248, 247, 247);
-    border-radius: 5px;
-    line-height: 40px;
-    font-weight: normal;
-    font-size: 18px;
-    color: #008842;
+.user-manage {
+  width: 100%;
+  height: 40px;
+  margin: 10px 0;
+  padding-left: 5px;
+  background: rgb(248, 247, 247);
+  border-radius: 5px;
+  line-height: 40px;
+  font-weight: normal;
+  font-size: 18px;
+  color: #008842;
 }
 </style>

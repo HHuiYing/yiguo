@@ -37,9 +37,9 @@ const common = {
                 const { data } = await request.get(
                     `/jwtverify?authorization=${currentUser.authorization}`
                 )
-
                 if (data.code === 0) {
                     localStorage.removeItem("currentUser");
+
                     // this.$router.push("/login");
                 } else {
                     // 显示用户信息

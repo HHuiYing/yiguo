@@ -162,8 +162,8 @@ export default {
       ImagePreview({
         images: [
           this.goodsMsg.pictureUrl,
-          "img/swipe-1.jpg",
-          "img/swipe-2.jpg",
+          "/img/swipe-1.jpg",
+          "/img/swipe-2.jpg",
         ],
         closeable: true,
       });
@@ -184,12 +184,12 @@ export default {
       if (current) {
         this.$store.commit("changeQty", {
           commodityCode,
-          qty: current.commodityNum * 1 + 1,
+          qty: current.commodityNum * 1 + this.value,
         });
       } else {
         const goods = {
           ...this.goodsMsg,
-          commodityNum: 1,
+          commodityNum: this.value,
         };
         this.$store.commit("add", goods);
       }

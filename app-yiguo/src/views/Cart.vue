@@ -31,7 +31,7 @@
     <van-submit-bar :price="totalPrice" button-text="去结算" @submit="onSubmit" label="合计(不含运费):">
       <van-checkbox v-model="checkAll">全选</van-checkbox>
     </van-submit-bar>
-    <!-- <div style="height:50px"></div> -->
+    <div style="height:50px;background-color:#fff;"></div>
   </div>
 </template>
 <script>
@@ -156,6 +156,7 @@ export default {
     margin-top: 15px;
   }
 }
+
 .van-submit-bar {
   bottom: 50px;
   .van-submit-bar__bar {

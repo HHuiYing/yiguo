@@ -332,7 +332,6 @@ export default {
   //  监听动态路由改变
   watch: {
     "$route.path"() {
-      console.log(this.$route.meta.path, this.path, this.$route);
       this.path = this.$route.meta.path;
       this.reset();
     },

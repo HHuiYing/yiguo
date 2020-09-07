@@ -60,7 +60,7 @@ export default {
     };
   },
   methods: {
-       async onSend() {
+    async onSend() {
       const { data } = await this.$request.get("/login", {
         params: {
           ...this.ruleForm,
@@ -73,22 +73,23 @@ export default {
         });
       } else {
         // 登录成功
-        localStorage.setItem("currentUser", JSON.stringify(data.data));
+              localStorage.setItem("currentUser", JSON.stringify(data.data));
         Toast.success({
           message: "登录成功",
           forbidClick: true,
         });
         // const { redirectTo = "/Home" } = this.$route.query;
         // this.$router.replace(redirectTo);
+
         this.$router.push("/home");
       }
     },
-    created() {
-      const authorization = localStorage.getItem("currentUser");
-      if (authorization) {
-        this.$router.push("/Mine");
-      }
-    },
+  },
+  created() {
+    const authorization = localStorage.getItem("currentUser");
+    if (authorization) {
+      this.$router.push("/Mine");
+    }
   },
 };
 </script>
