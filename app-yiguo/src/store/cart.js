@@ -10,7 +10,9 @@ const cart = {
     },
     getters: {
         totalPrice(state) {
-            return state.goodslist.reduce((pre, item) => pre + item.commodityNum * item.commodityPrice, 0) * 100
+            return state.goodslist.reduce((pre, item) => item.checked
+                ? pre + item.commodityNum * item.commodityPrice
+                : pre, 0) * 100
         }
     },
     mutations: {
@@ -39,9 +41,9 @@ const cart = {
             state.goodslist = state.goodslist.filter(item => item._id !== _id)
         },
 
-        // 全部删除
+        // 提交订单
         clear(state) {
-            state.goodslist = []
+            state.goodslist = state.goodslist.filter(item => !item.checked)
         },
         //  全选
         checkedAll(state, val) {

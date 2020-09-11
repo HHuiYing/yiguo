@@ -160,7 +160,7 @@ export default {
     } else {
       // 校验token的有效性
       const result = await fetch(
-        `http://10.3.138.12:2003/api/jwtverify?authorization=${currentUser.authorization}`
+        `http://120.24.62.247:2003/api/jwtverify?authorization=${currentUser.authorization}`
       ).then((res) => res.json());
 
       if (result.code === 0) {
