@@ -7,7 +7,13 @@
         <img src="../.././public/img/touxiang.jpg" alt />
       </div>
       <!-- 登录注册 -->
-      <p class="regLogin" @click="gotoLogin">登录/注册</p>
+      <p class="regLogin">
+        <span v-if="isShow">
+          {{loginName}}
+          <van-button plain type="primary" @click="handleCommand" round size="small">退出登录</van-button>
+        </span>
+        <span @click="gotoLogin" v-else>登录/注册</span>
+      </p>
       <!-- 设置 -->
       <div class="topSet">
         <van-icon name="setting-o" size="20" color="#ffffff" />
@@ -47,7 +53,8 @@ export default {
   name: "Mine",
   data() {
     return {
-      recommend: [],
+      // username: "",
+      //recommend: [],
       menu: [
         {
           text: "优惠券",
@@ -84,12 +91,33 @@ export default {
       ],
     };
   },
-  components: {},
-  methods:{
+  computed: {
+    isShow() {
+      return this.$store.state.common.ifLogin;
+    },
+    loginName() {
+      return this.$store.state.common.username;
+    },
+  },
+  methods: {
     //跳转到登陆页面
-    gotoLogin(){
+    gotoLogin() {
       this.$router.push("/Login");
-    }
+    },
+    //显示切换
+    change: function () {
+      // if (result.code === 0) {
+      //   this.isShow = !this.isShow;
+      // } else {
+      //   this.isShow = !this.isShow;
+      // }
+    },
+
+    handleCommand() {
+      localStorage.removeItem("currentUser");
+      this.$router.push("/login");
+      this.$store.commit("logout");
+    },
   },
 };
 </script>
@@ -158,14 +186,22 @@ export default {
   .orderCon {
     margin: 7px 0;
     width: 100%;
-    /deep/.van-grid-item__text{
-      font-size: 9px; 
+    /deep/.van-grid-item__content {
+      padding: 16px 4px;
     }
   }
-  .myMessage{
-    .van-grid-item{
+  .myMessage {
+    .van-grid-item {
       color: #ccc;
     }
   }
+}
+.van-button--plain {
+  background-color: transparent;
+  color: #fff;
+  margin-left: 10px;
+}
+.van-button--primary {
+  border: 1px solid #fff;
 }
 </style>

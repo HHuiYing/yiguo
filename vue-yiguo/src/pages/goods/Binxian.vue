@@ -90,8 +90,8 @@
               <el-form-item label="商品单位" :label-width="formLabelWidth">
                 <el-input v-model="form.commodityUnit" autocomplete="off"></el-input>
               </el-form-item>
-              <el-form-item label="商品图片" :label-width="formLabelWidth">
-                <!-- <el-upload
+              <!-- <el-form-item label="商品图片" :label-width="formLabelWidth"> -->
+              <!-- <el-upload
                   class="upload-demo"
                   action="https://jsonplaceholder.typicode.com/posts/"
                   :on-preview="handlePreview"
@@ -101,8 +101,8 @@
                 >
                   <el-button size="small" type="primary">点击上传</el-button>
                   <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-                </el-upload>-->
-              </el-form-item>
+              </el-upload>-->
+              <!-- </el-form-item> -->
             </el-form>
             <div slot="footer" class="dialog-footer">
               <el-button @click="dialogFormVisible = false">取 消</el-button>
@@ -318,15 +318,15 @@ export default {
     },
 
     //  上传图片
-    handleRemove(file, fileList) {
-      console.log("handleRemove", file, fileList);
-    },
-    handlePreview(file) {
-      console.log("handlePreview", file);
-    },
-    beforeRemove(file) {
-      return this.$confirm("beforeRemove", `确定移除 ${file.name}？`);
-    },
+    // handleRemove(file, fileList) {
+    //   console.log("handleRemove", file, fileList);
+    // },
+    // handlePreview(file) {
+    //   console.log("handlePreview", file);
+    // },
+    // beforeRemove(file) {
+    //   return this.$confirm("beforeRemove", `确定移除 ${file.name}？`);
+    // },
   },
 
   //  监听动态路由改变

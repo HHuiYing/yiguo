@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <router-view />
+    <div style="height:50px"></div>
     <van-tabbar v-model="active" route v-show="showTabbar">
       <van-tabbar-item
         :icon="item.icon"
@@ -21,6 +22,7 @@ Vue.use(TabbarItem);
 Vue.use(VanImage);
 Vue.use(Button);
 Vue.use(Icon);
+
 export default {
   data() {
     return {
@@ -57,6 +59,27 @@ export default {
     showTabbar() {
       return this.$store.state.common.showTabbar;
     },
+  },
+  async created() {
+    this.$store.dispatch("getCart");
+    // let currentUser = localStorage.getItem("currentUser");
+    // currentUser = JSON.parse(currentUser);
+    // if (!currentUser) {
+    //   // this.$router.push("/login");
+    // } else {
+    //   // 校验token的有效性
+    //   const { data } = await this.$request.get(
+    //     `/jwtverify?authorization=${currentUser.authorization}`
+    //   );
+
+    //   if (data.code === 0) {
+    //     localStorage.removeItem("currentUser");
+    //     // this.$router.push("/login");
+    //   } else {
+    //     // 显示用户信息
+    //     this.$store.commit("user", currentUser.username);
+    //   }
+    // }
   },
 };
 </script>
