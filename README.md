@@ -10,6 +10,37 @@
 ## git仓库地址: 
     https://github.com/gzh52003/yiguo
 
+## 技术
+    易果生鲜后台管理系统
+        前端：
+        * Vue
+        * Vue-Router
+        * Vue-Cli
+        * axios
+        * elementUI、echarts
+        * git
+
+        后端：
+        * Nodejs
+        * Express
+        * MongoDB
+
+    易果生鲜webapp
+
+        前端：
+        * Vue
+        * Vue-Router
+        * Vue-Cli
+        * VueX
+        * axios
+        * vant
+        * git
+
+        后端：
+        * Nodejs
+        * Express
+        * MongoDB
+
 ## 团队与分工
     + 组长：黄晓勋，组员：胡慧颖，刘耀
     + 负责模块说明

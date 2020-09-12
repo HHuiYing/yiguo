@@ -1,9 +1,11 @@
 <template>
   <div class="home">
     <!-- 导航 -->
-    <van-sticky>
-      <van-search v-model="value" shape="round" background="#4fc08d" placeholder="请输入搜索关键词" />
-    </van-sticky>
+    <header>
+      <van-sticky>
+        <van-search v-model="value" shape="round" background="#4fc08d" placeholder="请输入搜索关键词"></van-search>
+      </van-sticky>
+    </header>
     <!--轮播图-->
     <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
       <van-swipe-item v-for="item in recommend" :key="item._id">
