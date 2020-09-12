@@ -4,7 +4,7 @@
     <div class="mySet">
       <!-- 头像 -->
       <div class="headerImg">
-        <img src="../.././public/img/touxiang.jpg" alt />
+        <img :src="userImg" alt />
       </div>
       <!-- 登录注册 -->
       <p class="regLogin">
@@ -98,6 +98,9 @@ export default {
     loginName() {
       return this.$store.state.common.username;
     },
+    userImg() {
+      return this.$store.state.common.pictureUrl;
+    },
   },
   methods: {
     //跳转到登陆页面
@@ -105,13 +108,13 @@ export default {
       this.$router.push("/Login");
     },
     //显示切换
-    change: function () {
-      // if (result.code === 0) {
-      //   this.isShow = !this.isShow;
-      // } else {
-      //   this.isShow = !this.isShow;
-      // }
-    },
+    // change: function () {
+    // if (result.code === 0) {
+    //   this.isShow = !this.isShow;
+    // } else {
+    //   this.isShow = !this.isShow;
+    // }
+    // },
 
     handleCommand() {
       localStorage.removeItem("currentUser");

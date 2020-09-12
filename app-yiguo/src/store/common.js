@@ -3,6 +3,7 @@ import request from "../utils/request"
 const common = {
     state: {
         username: '',
+        pictureUrl: '',
         ifLogin: false,
         showTabbar: true,
 
@@ -11,12 +12,14 @@ const common = {
 
     },
     mutations: {
-        user(state, username) {
+        user(state, { username, pictureUrl }) {
             state.username = username
+            state.pictureUrl = pictureUrl
             state.ifLogin = true
         },
         logout(state) {
             state.username = ''
+            state.pictureUrl = '/img/user.jpg'
             state.ifLogin = false
         },
         displayTabbar(state, payload) {
@@ -43,7 +46,7 @@ const common = {
                     // this.$router.push("/login");
                 } else {
                     // 显示用户信息
-                    context.commit('user', currentUser.username)
+                    context.commit('user', { username: currentUser.username, pictureUrl: currentUser.pictureUrl })
 
                 }
             }

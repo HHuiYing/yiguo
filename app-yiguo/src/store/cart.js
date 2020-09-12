@@ -44,7 +44,7 @@ const cart = {
         // 提交订单
         clear(state) {
             state.goodslist = state.goodslist.filter(item => !item.checked)
-        },
+                },
         //  全选
         checkedAll(state, val) {
             state.goodslist = state.goodslist.map(item => {

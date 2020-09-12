@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
     //  处理排序参数
     sort = sort.split(',')
     if (code) {
-        let reg = new RegExp(code)
+        let reg = new RegExp(code) // 
         const result = await mongo.find('Binxian', { commodityCode: reg }, { skip, limit, sort })
         res.send(formatData({ data: result }))
 

@@ -33,7 +33,7 @@ Vue.use(VueRouter); //2.使用router
 
 //3.router实例化配置参数
 const router = new VueRouter({
-    // mode: 'history',
+    mode: 'history',
     routes: [{
         path: '/', // /->/home
         redirect: '/home'

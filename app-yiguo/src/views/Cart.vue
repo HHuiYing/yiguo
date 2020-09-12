@@ -64,7 +64,11 @@ export default {
     }),
     checkAll: {
       get() {
-        return this.$store.state.cart.goodslist.every((item) => item.checked);
+        if (this.$store.state.cart.goodslist[0]) {
+          return this.$store.state.cart.goodslist.every((item) => item.checked);
+        } else {
+          return false;
+        }
       },
       set(val) {
         this.$store.commit("checkedAll", val);

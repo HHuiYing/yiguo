@@ -8,25 +8,6 @@ const isProduction = process.env.NODE_ENV === 'production'
 module.exports = {
     lintOnSave: false,
     runtimeCompiler: true,
-    publicPath: './', // 设置打包文件相对路径
-    // 这是前端解决跨域的代码
-    devServer: {
-        // open: process.platform === 'darwin',
-        // host: 'localhost',
-        port: 8080,
-        // open: true, //配置自动启动浏览器
-        proxy: {
-            '/api': {
-                target: ``,//写上接口基地址
-                changeOrigin: true,
-                ws: true,
-                // secure: false, //如果是http接口，需要配置此参数
-                pathRewrite: {
-                    '^/api': ''
-                }
-            }
-        }
-    },
     configureWebpack: {
         resolve: {
             alias: {

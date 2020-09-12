@@ -89,6 +89,11 @@ export default {
 </script>
 
 <style lang="scss">
+html,
+body,
+#app {
+  height: 100%;
+}
 .goback {
   background: url(../public/img/goback.png) center/34px 34px;
   display: block;
